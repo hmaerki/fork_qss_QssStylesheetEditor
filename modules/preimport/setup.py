@@ -4,7 +4,6 @@ from setuptools import setup, find_packages
 
 
 def myversion():
-    from setuptools_scm.version import guess_next_version, _bump_regex, _strip_local
 
     def local_scheme(version):
         return ""

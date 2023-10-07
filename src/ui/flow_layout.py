@@ -4,7 +4,8 @@
 """
 
 from PyQt6.QtCore import QPoint, QRect, QSize, Qt
-from PyQt6.QtWidgets import (QApplication, QLayout, QPushButton, QSizePolicy, QWidget)
+from PyQt6.QtWidgets import (QApplication, QLayout, QPushButton, QSizePolicy,
+                             QWidget)
 
 
 class QFlowLayout(QLayout):
@@ -73,10 +74,16 @@ class QFlowLayout(QLayout):
         lineHeight = 0
         for item in self.itemList:
             wid = item.widget()
-            spaceX = self.spacing() + wid.style().layoutSpacing(QSizePolicy.ControlType.PushButton, QSizePolicy.ControlType.PushButton,
-                                                                Qt.Orientation.Horizontal)
-            spaceY = self.spacing() + wid.style().layoutSpacing(QSizePolicy.ControlType.PushButton, QSizePolicy.ControlType.PushButton,
-                                                                Qt.Orientation.Vertical)
+            spaceX = self.spacing() + wid.style().layoutSpacing(
+                QSizePolicy.ControlType.PushButton,
+                QSizePolicy.ControlType.PushButton,
+                Qt.Orientation.Horizontal,
+            )
+            spaceY = self.spacing() + wid.style().layoutSpacing(
+                QSizePolicy.ControlType.PushButton,
+                QSizePolicy.ControlType.PushButton,
+                Qt.Orientation.Vertical,
+            )
             nextX = x + item.sizeHint().width() + spaceX
             if nextX - spaceX > rect.right() and lineHeight > 0:
                 x = rect.x()
@@ -90,7 +97,7 @@ class QFlowLayout(QLayout):
         return y + lineHeight - rect.y()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     class Window(QWidget):
         def __init__(self):
@@ -105,6 +112,7 @@ if __name__ == '__main__':
             self.setWindowTitle("Flow Layout")
 
     import sys
+
     app = QApplication(sys.argv)
     mainWin = Window()
     mainWin.show()

@@ -3,9 +3,12 @@
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
-from PyQt6.QtGui import QPalette, QFont, QColor
-from PyQt6.QtWidgets import (QDialog, QHBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, QPushButton,
-                             QColorDialog, QVBoxLayout, QTextEdit, QApplication)
+import sys
+
+from PyQt6.QtGui import QColor, QPalette
+from PyQt6.QtWidgets import (QAbstractItemView, QApplication, QColorDialog,
+                             QDialog, QHBoxLayout, QPushButton, QTableWidget,
+                             QTableWidgetItem, QTextEdit, QVBoxLayout)
 
 
 class PaletteDialog(QDialog):
@@ -40,13 +43,15 @@ class PaletteDialog(QDialog):
             "HighlightedText": QPalette.ColorRole.HighlightedText,
             "Link": QPalette.ColorRole.Link,
             "LinkVisited": QPalette.ColorRole.LinkVisited,
-            "NoRole": QPalette.ColorRole.NoRole
+            "NoRole": QPalette.ColorRole.NoRole,
         }
         layout = QVBoxLayout()
         t = QTableWidget()
         t.setRowCount(len(self.tab))
         t.setColumnCount(5)
-        t.setHorizontalHeaderLabels(["ColorRole", "Active", "Inactive", "Disabled", "reset"])
+        t.setHorizontalHeaderLabels(
+            ["ColorRole", "Active", "Inactive", "Disabled", "reset"]
+        )
         t.verticalHeader().setVisible(False)
         t.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         t.setDragEnabled(False)
@@ -67,7 +72,9 @@ class PaletteDialog(QDialog):
             btn = t.cellWidget(rowNum, colNum)
             clrRoletext = t.item(rowNum, 0).text()
             c = self.oldclr[clrRoletext][colNum - 1]
-            color = QColorDialog.getColor(QColor(c), self, self.tr("color pick"), QColorDialog.ShowAlphaChannel)
+            color = QColorDialog.getColor(
+                QColor(c), self, self.tr("color pick"), QColorDialog.ShowAlphaChannel
+            )
             if color.isValid():
                 clrstr = color.name()
                 if color.alpha() == 255:
@@ -83,7 +90,7 @@ class PaletteDialog(QDialog):
 
         def resetrow():
             rowNum = t.currentRow()
-            colNum = t.currentColumn()
+            t.currentColumn()
             clrRoletext = t.item(rowNum, 0).text()
             self.newclr.pop(clrRoletext)
 
@@ -148,11 +155,29 @@ class PaletteDialog(QDialog):
         for k, v in self.newclr.items():
             c1, c2, c3 = v
             if c1:
-                t += "palette.setColor(QPalette.Active, QPalette." + k + ", QColor(" + c1 + "))\n"
+                t += (
+                    "palette.setColor(QPalette.Active, QPalette."
+                    + k
+                    + ", QColor("
+                    + c1
+                    + "))\n"
+                )
             if c2:
-                t += "palette.setColor(QPalette.Inactive, QPalette." + k + ", QColor(" + c2 + "))\n"
+                t += (
+                    "palette.setColor(QPalette.Inactive, QPalette."
+                    + k
+                    + ", QColor("
+                    + c2
+                    + "))\n"
+                )
             if c3:
-                t += "palette.setColor(QPalette.Disabled, QPalette." + k + ", QColor(" + c3 + "))\n"
+                t += (
+                    "palette.setColor(QPalette.Disabled, QPalette."
+                    + k
+                    + ", QColor("
+                    + c3
+                    + "))\n"
+                )
         self.d.showdialog(t)
 
     def cancel(self):
@@ -200,9 +225,6 @@ class CodeDialog(QDialog):
 
 
 if __name__ == "__main__":
-    from PyQt6.QtWidgets import QApplication
-    import sys
-
     app = QApplication(sys.argv)
     w = PaletteDialog()
     w.show()

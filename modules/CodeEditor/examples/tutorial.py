@@ -7,7 +7,7 @@ Copyright (c) 2019 lileilei. <hustlei@sina.cn>
 import sys
 
 from PyQt6.QtGui import QColor
-from PyQt6.QtWidgets import QApplication, QWidget, QHBoxLayout
+from PyQt6.QtWidgets import QApplication
 
 sys.path.append("..")
 from CodeEditor import Editor

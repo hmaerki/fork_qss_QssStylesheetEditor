@@ -5,23 +5,36 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import requests
-from PyQt6.QtCore import QUrl, QThread, pyqtSignal
+from PyQt6.QtCore import QThread, QUrl, pyqtSignal
 from PyQt6.QtGui import QDesktopServices, QFont, QPixmap
-from PyQt6.QtWidgets import QDialog, QHBoxLayout, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtWidgets import (QDialog, QHBoxLayout, QLabel, QPushButton,
+                             QVBoxLayout)
 
 
 def getLatestVer(githubname, projname):  # hustlei #QssStylesheetEditor
-    addr = "https://api.github.com/repos/" + githubname + "/" + projname + "/releases/latest"
+    addr = (
+        "https://api.github.com/repos/"
+        + githubname
+        + "/"
+        + projname
+        + "/releases/latest"
+    )
     response = requests.get(addr)
-    return response.json()["tag_name"].strip('Vv')
+    return response.json()["tag_name"].strip("Vv")
 
 
 class AsyncGetLatestVer(QThread):  # 线程2
-    got = pyqtSignal(str)  #已执行完成的信号
+    got = pyqtSignal(str)  # 已执行完成的信号
 
     def __init__(self, githubname, projname):
         super().__init__()
-        self.addr = "https://api.github.com/repos/" + githubname + "/" + projname + "/releases/latest"
+        self.addr = (
+            "https://api.github.com/repos/"
+            + githubname
+            + "/"
+            + projname
+            + "/releases/latest"
+        )
 
     def run(self):
         # response = requests.get(self.addr)
@@ -30,7 +43,7 @@ class AsyncGetLatestVer(QThread):  # 线程2
             s = requests.session()
             s.keep_alive = False
             rst = s.get(self.addr)
-            ret = rst.json()["tag_name"].strip('Vv')
+            ret = rst.json()["tag_name"].strip("Vv")
         except Exception:
             self.got.emit(None)
             return
@@ -91,16 +104,23 @@ class updateinfodialog(QDialog):
             self.infolabel.setText(self.verinfo2)
             self.versionlabel.setText(self.tr("Current Version:") + ver)
             self.newverlabel.setText(
-                self.tr("Update Version:") + newver + "(<a href=" + addr + self.tr(">download</a>)"))
+                self.tr("Update Version:")
+                + newver
+                + "(<a href="
+                + addr
+                + self.tr(">download</a>)")
+            )
         self.show()
 
 
 if __name__ == "__main__":
     print(getLatestVer("hustlei", "QssStylesheetEditor"))
-    from PyQt6.QtWidgets import *
     import sys
+
+    from PyQt6.QtWidgets import *
+
     app = QApplication(sys.argv)
     d = updateinfodialog()
-    d.showdialog('v1.6')
-    d.showdialog('v1.6', 'v1.7', 'http://baidu.com')
+    d.showdialog("v1.6")
+    d.showdialog("v1.6", "v1.7", "http://baidu.com")
     sys.exit(app.exec())

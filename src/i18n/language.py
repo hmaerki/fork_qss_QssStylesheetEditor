@@ -4,13 +4,16 @@
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 import os
-from PyQt6.QtCore import QTranslator, QLibraryInfo, QLocale
+
+from PyQt6.QtCore import QLibraryInfo, QLocale, QTranslator
 from PyQt6.QtWidgets import QApplication
+
 from config import Config
 
 
 class Language:
     """i18n setting class"""
+
     trans = QTranslator()  # 必须定义为Language的变量，定义为局部变量不起作用
     systrans = QTranslator()
     __inited = False
@@ -28,9 +31,16 @@ class Language:
             conf = Config(os.path.join(os.path.dirname(__file__), "list.toml"))
             languages = conf.getSec("languages")
             for k, v in languages.items():
-                langitem = {"lang": v[0], "qmfile": v[1], "nativename": v[2], "englishname": k}
+                langitem = {
+                    "lang": v[0],
+                    "qmfile": v[1],
+                    "nativename": v[2],
+                    "englishname": k,
+                }
                 if not langitem["nativename"]:
-                    langitem["nativename"] = QLocale(langitem["name"]).nativeLanguageName()
+                    langitem["nativename"] = QLocale(
+                        langitem["name"]
+                    ).nativeLanguageName()
                 if langitem["lang"]:
                     Language.__listInToml.append(langitem)
         except Exception:
@@ -39,7 +49,7 @@ class Language:
                     "lang": "en",
                     "qmfile": "",
                     "nativename": "English",
-                    "englishname": "English"
+                    "englishname": "English",
                 },
             ]
         Language.__inited = True
@@ -85,8 +95,7 @@ class Language:
 
     @classmethod
     def setTrans(cls):
-        """根据配置文件(如果没有就根据当前系统语言)设置当前语言包
-        """
+        """根据配置文件(如果没有就根据当前系统语言)设置当前语言包"""
         langs = Language.getLangs()
         lang = Language.getLang()
         qmfile = None
@@ -115,7 +124,9 @@ class Language:
         try:
             if Language.systrans.load("qt_" + QLocale(lang).name(), systransdir):
                 QApplication.installTranslator(Language.systrans)
-            if Language.systrans.load("qscintilla_" + QLocale(lang).name(), systransdir):
+            if Language.systrans.load(
+                "qscintilla_" + QLocale(lang).name(), systransdir
+            ):
                 QApplication.installTranslator(Language.systrans)
         except Exception:
             Language.systrans.load("qt_" + QLocale.system().name(), systransdir)

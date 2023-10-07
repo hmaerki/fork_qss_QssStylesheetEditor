@@ -4,13 +4,13 @@
 import os
 import sys
 import traceback
-from os import path
 from importlib import import_module, reload
+from os import path
+
 from CodeEditor import Editor
-from PyQt6.Qsci import QsciLexer, QsciLexerPython
+from PyQt6.Qsci import QsciLexerPython
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QMessageBox, QWidget, QFileDialog
-from data import cache
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 
 
 class SrcEditor(Editor):
@@ -25,18 +25,31 @@ class SrcEditor(Editor):
         self.custom = None
 
     def open(self):
-        file, _ = QFileDialog.getOpenFileName(self, self.tr("Open File"), '', "Python(*.py);;all(*.*)")
+        file, _ = QFileDialog.getOpenFileName(
+            self, self.tr("Open File"), "", "Python(*.py);;all(*.*)"
+        )
         if os.path.exists(file):
             self.file = file
             ok = self.load(self.file)
             if not ok:
-                QMessageBox.information(self, "Error", self.tr("load file failed"), QMessageBox.Ok, QMessageBox.Ok)
+                QMessageBox.information(
+                    self,
+                    "Error",
+                    self.tr("load file failed"),
+                    QMessageBox.Ok,
+                    QMessageBox.Ok,
+                )
         else:
-
-            QMessageBox.information(self, "Error", self.tr("file not found."), QMessageBox.Ok, QMessageBox.Ok)
+            QMessageBox.information(
+                self,
+                "Error",
+                self.tr("file not found."),
+                QMessageBox.Ok,
+                QMessageBox.Ok,
+            )
 
     def saveslot(self):
-        if (self.file):
+        if self.file:
             self.save(self.file)
         else:
             self.saveAs()
@@ -44,16 +57,16 @@ class SrcEditor(Editor):
     def saveas(self):
         file, _ = QFileDialog.getSaveFileName(
             self,
-            self.tr(  # __ is filefilter
-                "save file"),
+            self.tr("save file"),  # __ is filefilter
             self.file,
-            "Python(*.py);;all(*.*)")
+            "Python(*.py);;all(*.*)",
+        )
         if file:
             self.file = file.encode("utf-8")
             self.save(self.file)
 
     def preview(self):
-        with open(self.cachefile, 'w', newline='') as file:
+        with open(self.cachefile, "w", newline="") as file:
             # 不指定newline，则换行符为各系统默认的换行符（\n, \r, or \r\n, ）
             # newline=''表示不转换
             pretext = """# -*- coding: utf-8 -*-
@@ -66,18 +79,18 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 """
             file.write(pretext)
-            file.write(self.text().replace('\t', '    '))
+            file.write(self.text().replace("\t", "    "))
 
         dir1 = os.getcwd()
         try:
             os.chdir(self.dir)
-            #del self.custom
+            # del self.custom
             if "data.cache.custom" in sys.modules:
                 sys.modules.pop("data.cache.custom")
             # self.custom = import_module(".custom", "data.cache")
             self.custom = import_module(".cache.custom", "data")
             reload(self.custom)
-            if (hasattr(self.custom, "MainWindow")):
+            if hasattr(self.custom, "MainWindow"):
                 self.w = self.custom.MainWindow()
                 self.w.setParent(self)
                 self.w.setWindowFlags(Qt.WindowType.Window)
@@ -89,8 +102,15 @@ from PyQt6.QtCore import *
         except Exception as e:
             # del self.custom
             # del self.w
-            QMessageBox.information(self, "Error",
-                                    self.tr("Preview error, please check the code.\n\n") + str(e) + "\n\n" + traceback.format_exc(), QMessageBox.StandardButton.Ok,
-                                    QMessageBox.StandardButton.Ok)
+            QMessageBox.information(
+                self,
+                "Error",
+                self.tr("Preview error, please check the code.\n\n")
+                + str(e)
+                + "\n\n"
+                + traceback.format_exc(),
+                QMessageBox.StandardButton.Ok,
+                QMessageBox.StandardButton.Ok,
+            )
         finally:
             os.chdir(dir1)

@@ -7,5 +7,3 @@
 
 __version__ = "1.2.0"
 
-from .base import Error, NoSectionError, SectionTypeError, TomlSection
-from .core import TomlConfig

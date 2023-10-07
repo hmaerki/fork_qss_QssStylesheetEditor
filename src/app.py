@@ -7,11 +7,13 @@ App class wrapped a QApplication, which will show splash and start gui.
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-import sys
 import os
+import sys
+
 from PyQt6.QtWidgets import QApplication
-from splash import SplashScreen
+
 from i18n.language import Language
+from splash import SplashScreen
 
 os.chdir(os.path.dirname(__file__))
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -19,6 +21,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 class App(QApplication):
     """Application to load splash and mainwindow"""
+
     def __init__(self):
         super().__init__(sys.argv)
         self.windows = {}
@@ -35,6 +38,7 @@ class App(QApplication):
         splash = SplashScreen("res/splash.png")
         splash.loadProgress()
         from ui.mainwin import MainWin
+
         self.windows["main"] = MainWin()
         self.windows["main"].show()
         splash.finish(self.windows["main"])

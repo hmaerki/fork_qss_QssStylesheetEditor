@@ -5,6 +5,7 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import os
+
 from . import toml
 
 
@@ -20,6 +21,7 @@ class Section(dict):
         sec11 = sec.getSec("sec1.sec11")
         sec11.setValue("abc")
     """
+
     def __init__(self):
         super().__init__()
 
@@ -57,7 +59,7 @@ class Section(dict):
         if secName is None:
             return self
         if secName in self:
-            return (self[secName])
+            return self[secName]
         if addifnotfound:
             return self._addSec(secName)
         return None
@@ -231,6 +233,7 @@ class Section(dict):
 
 class ConfigParser(Section):
     """Paser for toml config file"""
+
     def __init__(self):
         # self.dict = {}
         self.cfgFile = None
@@ -250,22 +253,22 @@ class ConfigParser(Section):
         if cfgFile is None:
             return False
         if not os.path.exists(cfgFile):
-            print("Toml config file: \"" + os.path.basename(cfgFile) + '\" not found.')
+            print('Toml config file: "' + os.path.basename(cfgFile) + '" not found.')
             return False
-        with open(cfgFile, mode='rb') as f:
+        with open(cfgFile, mode="rb") as f:
             content = f.read()
-        if content.startswith(b'\xef\xbb\xbf'):  # 去掉 utf8 bom 头 #TOML要求使用UTF-8 编码
+        if content.startswith(b"\xef\xbb\xbf"):  # 去掉 utf8 bom 头 #TOML要求使用UTF-8 编码
             content = content[3:]
         self.clear()
-        self.update(toml.loads(content.decode('utf8'), _dict=Section))
+        self.update(toml.loads(content.decode("utf8"), _dict=Section))
         return True
 
-    def _save(self, cfgFile=None, coding='utf-8'):
+    def _save(self, cfgFile=None, coding="utf-8"):
         """save config in self.dict to toml file."""
         if cfgFile is None:
             cfgFile = self.cfgFile
         if cfgFile is not None:
-            with open(cfgFile, 'w', newline='', encoding=coding) as outfile:
+            with open(cfgFile, "w", newline="", encoding=coding) as outfile:
                 # 不指定newline，则换行符自动转换为各系统默认的换行符(\n, \r, or \r\n,)
                 # newline=''表示不转换
                 s = toml.dumps(self.dict)

@@ -27,5 +27,7 @@ def preload(moduleNames: Iterable[str]):
             import_module(module_name)
             print("ok ({:.2}s)".format(time() - t0))  # ✓
         else:
-            warn(f'Module "{module_name}" has already been imported. Make sure to call "preload"'
-                 f'before any other import statements.')
+            warn(
+                f'Module "{module_name}" has already been imported. Make sure to call "preload"'
+                f"before any other import statements."
+            )

@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 """Fixture for pytest"""
 
-from pytest import fixture
 
-import sys
-from PyQt6.QtWidgets import QApplication
 #from CodeEditor import Editor
 
 # @fixture(scope="function")

@@ -4,7 +4,7 @@
 from PyQt6.Qsci import QsciScintilla
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QHBoxLayout, QGridLayout, QVBoxLayout, QCheckBox, QPushButton,
                              QLabel, QLineEdit, QSpacerItem, QSizePolicy)
-from PyQt6.QtCore import Qt, QMargins
+from PyQt6.QtCore import Qt
 
 
 class SearchDialog(QMainWindow):

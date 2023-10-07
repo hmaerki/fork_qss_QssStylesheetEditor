@@ -5,27 +5,35 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import time
+
+from preimport import preimport
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QApplication, QSplashScreen
-from preimport import preimport
 
 
 class SplashScreen(QSplashScreen):
     """Custom SplashScreen"""
+
     def __init__(self, picfile):
         pixmap = QPixmap(picfile)
         # , Qt.WindowStaysOnTopHint)
         super(SplashScreen, self).__init__(pixmap)
         # self.setMask(splash_pix.mask())
         # self.raise_()
-        self.labelAlignment = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
+        self.labelAlignment = int(
+            Qt.AlignmentFlag.AlignBottom
+            | Qt.AlignmentFlag.AlignHCenter
+            | Qt.AlignmentFlag.AlignAbsolute
+        )
         self.show()
         # QApplication.flush()
 
     def showMessage(self, msg):
         """Show the progress message on the splash image"""
-        super(SplashScreen, self).showMessage(msg, self.labelAlignment, Qt.GlobalColor.white)
+        super(SplashScreen, self).showMessage(
+            msg, self.labelAlignment, Qt.GlobalColor.white
+        )
         QApplication.processEvents()
 
     def clearMessage(self):

@@ -6,13 +6,12 @@
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-import os
-from PyQt6.QtCore import Qt, QVariant, QCoreApplication, QSize, pyqtSignal
-from PyQt6.QtGui import QColor, QPalette, QFont
+from PyQt6.QtCore import Qt, QVariant, QCoreApplication, pyqtSignal
+from PyQt6.QtGui import QColor, QFont
 from PyQt6.QtWidgets import (QWidget, QGroupBox, QVBoxLayout, QPushButton, QLabel, QHBoxLayout, QSpinBox, QCheckBox,
                              QComboBox, QColorDialog, QFontComboBox, QScrollArea)
 from PyQt6.Qsci import QsciScintilla
-from .setting_enums import EnumError, SettingEnums
+from .setting_enums import SettingEnums
 
 
 class EditorSettings():
@@ -493,7 +492,7 @@ class EditorSettings():
 
     def _create_fontcombobox(self, name):
         """Return a combobox for modifying a multiple-getValue setting."""
-        setting = self.settingItems[name]
+        self.settingItems[name]
         # Create the combobox and populate it
         combo = QFontComboBox()
         combo.setMinimumWidth(100)

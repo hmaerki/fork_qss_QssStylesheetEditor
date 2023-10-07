@@ -5,17 +5,20 @@ import os
 import re
 import sys
 
-from PyQt6.QtWidgets import (QWidget, QLabel, QPushButton, QColorDialog, QFileDialog, QMessageBox, QFormLayout,
-                             QVBoxLayout, QHBoxLayout,QApplication)
-from PyQt6.QtGui import QIcon, QColor, qGray, QFont
-from PyQt6.QtCore import Qt, QSize, QTimer
-# import sip
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QColor, QFont, QIcon, qGray
+from PyQt6.QtWidgets import (QApplication, QColorDialog, QFileDialog,
+                             QHBoxLayout, QLabel, QMessageBox, QPushButton,
+                             QWidget)
 
-from config import Config, ConfDialog
+from config import ConfDialog, Config
 from qss_template import Qsst
+
 from .mainwinbase import MainWinBase
 from .palettedialog import PaletteDialog
 from .recent import Recent
+
+# import sip
 
 
 class MainWin(MainWinBase):
@@ -59,7 +62,9 @@ class MainWin(MainWinBase):
 
         # new fetures 202204
         self.timer = QTimer()
-        self.timer.timeout.connect(lambda: {self.renderStyle(), self.loadColorPanel(), self.timer.stop()})
+        self.timer.timeout.connect(
+            lambda: {self.renderStyle(), self.loadColorPanel(), self.timer.stop()}
+        )
 
     def setupActions(self):
         # theme  toolbarWidget
@@ -87,19 +92,28 @@ class MainWin(MainWinBase):
         self.actions["find"].triggered.connect(self.editor.find)
         self.actions["replace"].triggered.connect(self.editor.replace)
         self.actions["echospace"].triggered.connect(
-            lambda: self.editor.setWhitespaceVisibility(not self.editor.whitespaceVisibility()))
-        self.actions["echoeol"].triggered.connect(lambda: self.editor.setEolVisibility(not self.editor.eolVisibility()))
+            lambda: self.editor.setWhitespaceVisibility(
+                not self.editor.whitespaceVisibility()
+            )
+        )
+        self.actions["echoeol"].triggered.connect(
+            lambda: self.editor.setEolVisibility(not self.editor.eolVisibility())
+        )
         self.actions["fontup"].triggered.connect(self.editor.zoomIn)
         self.actions["fontdown"].triggered.connect(self.editor.zoomOut)
-        self.actions["autowrap"].triggered.connect(lambda: self.editor.setWrapMode(0 if self.editor.wrapMode() else 2))
+        self.actions["autowrap"].triggered.connect(
+            lambda: self.editor.setWrapMode(0 if self.editor.wrapMode() else 2)
+        )
 
         # contianerWidget.setSizePolicy(QSizePolicy.Maximum,QSizePolicy.Minimum)
         def sizeDock(dockLoc):
             if dockLoc in (Qt.TopDockWidgetArea, Qt.BottomDockWidgetArea):
                 # self.colorPanelWidget.resize(self.docks["color"].width(),
                 #   self.colorPanelLayout.minimumSize().height())
-                self.docks["color"].widget().resize(self.docks["color"].width(),
-                                                    self.colorPanelLayout.minimumSize().height())
+                self.docks["color"].widget().resize(
+                    self.docks["color"].width(),
+                    self.colorPanelLayout.minimumSize().height(),
+                )
 
         self.docks["color"].dockLocationChanged.connect(sizeDock)
 
@@ -116,9 +130,15 @@ class MainWin(MainWinBase):
         # self.editor.mouseLeave.connect(rend)
         self.editor.mousePress.connect(rend)
         self.editor.linesChanged.connect(
-            lambda: self.status["lines"].setText(self.tr("lines:") + str(self.editor.lines())))
+            lambda: self.status["lines"].setText(
+                self.tr("lines:") + str(self.editor.lines())
+            )
+        )
         self.editor.cursorPositionChanged.connect(
-            lambda l, p: self.status["line"].setText(self.tr("line:") + str(l + 1) + self.tr("  pos:") + str(p)))
+            lambda l, p: self.status["line"].setText(
+                self.tr("line:") + str(l + 1) + self.tr("  pos:") + str(p)
+            )
+        )
         self.editor.selectionChanged.connect(self.__setSelectStatus)
         self.editor.modificationChanged.connect(self.motifyChanged)
         self.editor.drop.connect(self.dropEvent)
@@ -130,12 +150,16 @@ class MainWin(MainWinBase):
         aboutText = "<b><center>" + self.title + "</center></b><br><br>"
         aboutText += self.tr(
             "This software is a advanced CodeEditor for QtWidget stylesheet(Qss), support custom variable and "
-            "real-time preview.<br><br> ")
+            "real-time preview.<br><br> "
+        )
         aboutText += self.tr(
             "author: lileilei<br>website: <a href='https://github.com/hustlei/QssStylesheetEditor'>https"
-            "://github.com/hustlei/QssStylesheetEditor</a><br><br>welcom communicate with me: hustlei@sina.cn ")
+            "://github.com/hustlei/QssStylesheetEditor</a><br><br>welcom communicate with me: hustlei@sina.cn "
+        )
         aboutText += "<br>copyright &copy; 2019, lilei."
-        self.actions["about"].triggered.connect(lambda: QMessageBox.about(self, "about", aboutText))
+        self.actions["about"].triggered.connect(
+            lambda: QMessageBox.about(self, "about", aboutText)
+        )
         self.actions["checkupdate"].triggered.connect(lambda: self.checkforupdate(True))
 
     def __setSelectStatus(self):
@@ -166,7 +190,11 @@ class MainWin(MainWinBase):
             lineto = linefrom
             linetext = self.editor.text(linefrom)
             linebytes = linetext.encode()
-            if len(linetext.encode()) < 4 or colcursor<2 or colcursor >len(linetext.encode())-2:
+            if (
+                len(linetext.encode()) < 4
+                or colcursor < 2
+                or colcursor > len(linetext.encode()) - 2
+            ):
                 return
             for i in range(colcursor - 1, -1, -1):
                 if linebytes[i] == ord("*") and linebytes[i - 1] == ord("/"):
@@ -174,67 +202,67 @@ class MainWin(MainWinBase):
                     break
             for i in range(colcursor, len(linebytes) - 1):
                 if linebytes[i] == ord("*") and linebytes[i + 1] == ord("/"):
-                    print(i, linebytes[i], linebytes[i+1])
+                    print(i, linebytes[i], linebytes[i + 1])
                     end = i
                     break
         else:
             linestart = self.editor.text(linefrom).encode()
-            colend = len(linestart) if lineto>linefrom else colto
+            colend = len(linestart) if lineto > linefrom else colto
             for i in range(colfrom, colend):
-                if linestart[i] == ord('/') and linestart[i+1] == ord('*'):
+                if linestart[i] == ord("/") and linestart[i + 1] == ord("*"):
                     start = i
                     break
             if start == -1:
                 for i in range(colfrom, 0, -1):
-                    if linestart[i] == ord('/') and linestart[i-1] == ord('*'):
+                    if linestart[i] == ord("/") and linestart[i - 1] == ord("*"):
                         start = -2
                         break
-                    elif linestart[i] == ord('*') and linestart[i-1] == ord('/'):
-                        start = i-1
+                    elif linestart[i] == ord("*") and linestart[i - 1] == ord("/"):
+                        start = i - 1
                         break
-            if start ==-1 and linefrom > 0:
+            if start == -1 and linefrom > 0:
                 while linefrom > 0:
-                    linefrom = linefrom -1
+                    linefrom = linefrom - 1
                     if self.editor.text(linefrom).strip() != "":
                         break
                 linestart = self.editor.text(linefrom).encode()
-                for i in range(len(linestart)-1, 0, -1):
-                    if linestart[i] == ord('/') and linestart[i-1] == ord('*'):
+                for i in range(len(linestart) - 1, 0, -1):
+                    if linestart[i] == ord("/") and linestart[i - 1] == ord("*"):
                         break
-                    elif linestart[i] == ord('*') and linestart[i-1] == ord('/'):
-                        start = i-1
+                    elif linestart[i] == ord("*") and linestart[i - 1] == ord("/"):
+                        start = i - 1
                         break
 
             if start > 0:
                 lineend = self.editor.text(lineto).encode()
-                colstart = 0 if lineto>linefrom else colfrom
+                colstart = 0 if lineto > linefrom else colfrom
                 for i in range(colto, colstart, -1):
-                    if lineend[i] == ord('/') and lineend[i - 1] == ord('*'):
+                    if lineend[i] == ord("/") and lineend[i - 1] == ord("*"):
                         end = i
                         break
                 if end == -1:
-                    for i in range(colto, len(lineend)-1):
-                        if lineend[i] == ord('/') and lineend[i + 1] == ord('*'):
+                    for i in range(colto, len(lineend) - 1):
+                        if lineend[i] == ord("/") and lineend[i + 1] == ord("*"):
                             end = -2
                             break
-                        elif lineend[i] == ord('*') and lineend[i + 1] == ord('/'):
+                        elif lineend[i] == ord("*") and lineend[i + 1] == ord("/"):
                             end = i
                             break
-                if end < 0 and lineto < self.editor.lines()-1:
-                    while lineto < self.editor.lines()-1:
+                if end < 0 and lineto < self.editor.lines() - 1:
+                    while lineto < self.editor.lines() - 1:
                         lineto = lineto + 1
                         if self.editor.text(lineto).strip() != "":
                             break
                     print(lineto)
                     lineend = self.editor.text(lineto).encode()
-                    for i in range(len(lineend)-1):
-                        if lineend[i] == ord('/') and lineend[i + 1] == ord('*'):
+                    for i in range(len(lineend) - 1):
+                        if lineend[i] == ord("/") and lineend[i + 1] == ord("*"):
                             break
-                        elif lineend[i] == ord('*') and lineend[i + 1] == ord('/'):
+                        elif lineend[i] == ord("*") and lineend[i + 1] == ord("/"):
                             end = i
-            print(linefrom,start, lineto, end)
+            print(linefrom, start, lineto, end)
 
-        if start>=0 and end>=0:
+        if start >= 0 and end >= 0:
             # try:
             # self.editor.positionFromLineIndex(linefrom, lineto)
             self.editor.setSelection(lineto, end, lineto, end + 2)
@@ -246,8 +274,8 @@ class MainWin(MainWinBase):
 
     def unuseQss(self, unuse):
         if unuse:
-            self.docks["preview"].setStyleSheet('')
-            self.setStyleSheet('')
+            self.docks["preview"].setStyleSheet("")
+            self.setStyleSheet("")
         else:
             self.setStyleSheet(self.currentUIqss)
             self.renderStyle()
@@ -261,7 +289,7 @@ class MainWin(MainWinBase):
 
         norand = self.actions["DisableQss"].isChecked()
         if norand:
-            self.docks["preview"].setStyleSheet('')
+            self.docks["preview"].setStyleSheet("")
         else:
             # self.setStyleSheet(self.qsst.qss)#tooltip透明等显示不出来
             # try:
@@ -271,8 +299,11 @@ class MainWin(MainWinBase):
             #     dir=os.path.dirname(self.file)
             #     os.chdir(dir)
             path = os.path.dirname(self.file).replace("\\", "/")
-            styleSheet = re.sub(r'url\([\s]*[\"\']?[\s]*([^\s\/:\"\'\)]+)[\s]*[\"\']?[\s]*\)',
-                                r'url("{}/\1")'.format(path).format(path), self.qsst.qss)  # 不支持带空格路径
+            styleSheet = re.sub(
+                r"url\([\s]*[\"\']?[\s]*([^\s\/:\"\'\)]+)[\s]*[\"\']?[\s]*\)",
+                r'url("{}/\1")'.format(path).format(path),
+                self.qsst.qss,
+            )  # 不支持带空格路径
             if os.path.exists(self.file):
                 name, _ = os.path.splitext(self.file)
                 res = name + ".py"
@@ -304,7 +335,12 @@ class MainWin(MainWinBase):
         # 大键盘为Ret小键盘为Enter
         if self.changed:
             self.timer.stop()
-            if e.key() in (Qt.Key_Return, Qt.Key_Enter, Qt.Key_Semicolon, Qt.Key_BraceRight):
+            if e.key() in (
+                Qt.Key_Return,
+                Qt.Key_Enter,
+                Qt.Key_Semicolon,
+                Qt.Key_BraceRight,
+            ):
                 self.timer.start(300)  # 普通人正常打字速度
                 self.changed = False
             else:
@@ -338,7 +374,9 @@ class MainWin(MainWinBase):
         # self.colorGridLayout.update()  # 不起作用
 
         # a,b=list(self.clrBtnDict.keys()),list(self.qsst.varDict.keys());a.sort();b.sort()
-        if sorted(list(self.clrBtnDict.keys())) != sorted(list(self.qsst.varDict.keys())):
+        if sorted(list(self.clrBtnDict.keys())) != sorted(
+            list(self.qsst.varDict.keys())
+        ):
             while self.colorPanelLayout.count() > 0:
                 self.colorPanelLayout.removeItem(self.colorPanelLayout.itemAt(0))
             self.clrBtnDict = {}
@@ -378,7 +416,7 @@ class MainWin(MainWinBase):
             btn.setText(clrStr)
             if "rgb" in clrStr:
                 t = clrStr.strip(r" rgba()")
-                c = t.split(',')
+                c = t.split(",")
                 if len(c) > 3:
                     lable = c[3]
                 else:
@@ -392,7 +430,7 @@ class MainWin(MainWinBase):
                     color = QColor(clrStr)
                 except Exception:
                     continue
-            s = ''
+            s = ""
             if qGray(color.rgb()) < 100:
                 s += "color:white;"
             else:
@@ -407,9 +445,11 @@ class MainWin(MainWinBase):
             c.setNamedColor(cstr)
         else:
             c.setNamedColor("white")
-        color = QColorDialog.getColor(c, self, self.tr("color pick"), QColorDialog.ShowAlphaChannel)
+        color = QColorDialog.getColor(
+            c, self, self.tr("color pick"), QColorDialog.ShowAlphaChannel
+        )
         if color.isValid():
-            s = ''
+            s = ""
             clrstr = color.name()
             if color.alpha() == 255:
                 clrstr = color.name().upper()
@@ -418,7 +458,7 @@ class MainWin(MainWinBase):
                 clrstr = color.name(QColor.HexArgb).upper()
             # s = 'font-size:8px;'
             if qGray(color.rgb()) < 100:
-                s += 'color:white;'
+                s += "color:white;"
             self.clrBtnDict[var].setText(clrstr)
             self.clrBtnDict[var].setStyleSheet(s + "background:" + clrstr)
             self.qsst.varDict[var] = clrstr
@@ -426,7 +466,9 @@ class MainWin(MainWinBase):
             # 用setText之后undo redo堆栈全部消失，所以暂时用这种方法
             pos = self.editor.verticalScrollBar().sliderPosition()
             self.editor.selectAll()
-            self.editor.replaceSelectedText(self.qsst.srctext)  # setText(self.qsst.srctext)
+            self.editor.replaceSelectedText(
+                self.qsst.srctext
+            )  # setText(self.qsst.srctext)
             # self.CodeEditor.setCursorPosition(xp,yp)
             self.editor.verticalScrollBar().setSliderPosition(pos)
             self.renderStyle()
@@ -437,8 +479,11 @@ class MainWin(MainWinBase):
     def open(self, file=None):  # _参数用于接收action的event参数,bool类型
         if file is None:
             file, _ = QFileDialog.getOpenFileName(
-                self, self.tr("Open File"), file,
-                "QSS(*.qss *.qsst);;qsst(*.qsst);;qss(*.qss);;all(*.*)")  # _是filefilter
+                self,
+                self.tr("Open File"),
+                file,
+                "QSS(*.qss *.qsst);;qsst(*.qsst);;qss(*.qss);;all(*.*)",
+            )  # _是filefilter
         if os.path.exists(file):
             self.file = file
             self.statusbar.showMessage(self.tr("opening file..."))
@@ -459,9 +504,13 @@ class MainWin(MainWinBase):
 
     def new(self):
         if self.editor.isModified():
-            ret = QMessageBox.question(self, self.title,
-                                       self.tr("Current file hasn't been saved, do you want to save?"),
-                                       QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.No)
+            ret = QMessageBox.question(
+                self,
+                self.title,
+                self.tr("Current file hasn't been saved, do you want to save?"),
+                QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
+                QMessageBox.No,
+            )
             if ret == QMessageBox.Yes:
                 self.save()
             elif ret == QMessageBox.Cancel:
@@ -478,9 +527,13 @@ class MainWin(MainWinBase):
 
     def newFromTemplate(self, templatefile="data/default.qsst"):
         if self.editor.isModified():
-            ret = QMessageBox.question(self, self.title,
-                                       self.tr("Current file hasn't been saved, do you want to save?"),
-                                       QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.No)
+            ret = QMessageBox.question(
+                self,
+                self.title,
+                self.tr("Current file hasn't been saved, do you want to save?"),
+                QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
+                QMessageBox.No,
+            )
             if ret == QMessageBox.Yes:
                 self.save()
             elif ret == QMessageBox.Cancel:
@@ -495,7 +548,7 @@ class MainWin(MainWinBase):
         self.editor.setModified(False)
 
     def save(self):
-        if (self.file and os.path.exists(self.file)):
+        if self.file and os.path.exists(self.file):
             self.lastSavedText = self.editor.text()
             self.editor.save(self.file.encode("utf-8"))
             self.status["coding"].setText("utf-8")
@@ -510,10 +563,10 @@ class MainWin(MainWinBase):
         # f="." if self.file==None else self.file
         file, _ = QFileDialog.getSaveFileName(
             self,
-            self.tr(  # __ is filefilter
-                "save file"),
+            self.tr("save file"),  # __ is filefilter
             self.file,
-            "qsst(*.qsst);;qss(*.qss);;all(*.*)")
+            "qsst(*.qsst);;qss(*.qss);;all(*.*)",
+        )
         if file:
             self.file = file
             self.lastSavedText = self.editor.text()
@@ -532,9 +585,11 @@ class MainWin(MainWinBase):
         else:
             # f=self.file[:-1]
             f = os.path.splitext(self.file)[0]
-        savefile, _ = QFileDialog.getSaveFileName(self, self.tr("export Qss"), f, "Qss(*.qss);;all(*.*)")
+        savefile, _ = QFileDialog.getSaveFileName(
+            self, self.tr("export Qss"), f, "Qss(*.qss);;all(*.*)"
+        )
         if savefile:
-            with open(savefile, 'w', newline='', encoding='utf-8') as f:
+            with open(savefile, "w", newline="", encoding="utf-8") as f:
                 f.write(self.qsst.qss)
 
     def autoExport(self, file):
@@ -546,7 +601,7 @@ class MainWin(MainWinBase):
                 if os.path.exists(backupfile):
                     os.remove(backupfile)
                 os.rename(qssfile, backupfile)
-            with open(qssfile, 'w', newline='', encoding='utf-8') as f:
+            with open(qssfile, "w", newline="", encoding="utf-8") as f:
                 f.write(self.qsst.qss)
                 self.firstAutoExport = False
 
@@ -566,9 +621,12 @@ class MainWin(MainWinBase):
     def closeEvent(self, e):
         if self.editor.isModified():
             if self.lastSavedText != self.editor.text():
-                msg = QMessageBox(QMessageBox.Question, self.title,
-                                  self.tr("Current file hasn't been saved, do you want to save?"),
-                                  QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+                msg = QMessageBox(
+                    QMessageBox.Question,
+                    self.title,
+                    self.tr("Current file hasn't been saved, do you want to save?"),
+                    QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
+                )
                 msg.setDefaultButton(QMessageBox.Cancel)
                 msg.button(QMessageBox.Save).setText(self.tr("Save"))
                 msg.button(QMessageBox.Discard).setText(self.tr("Discard"))
@@ -595,6 +653,7 @@ class MainWin(MainWinBase):
 
     def autocheckforupdate(self):
         from datetime import datetime
+
         today = datetime.now().date()
         tmp1 = self.config["update.autocheck"]
         if not isinstance(tmp1, bool):
@@ -611,14 +670,18 @@ class MainWin(MainWinBase):
             else:
                 deltaday = today - lastcheckday
                 d = deltaday.days
-                if (tmp2 == "day" and d >= 1) or (tmp2 == "week" and d >= 7) or (tmp2 == "month" and d >= 30):
+                if (
+                    (tmp2 == "day" and d >= 1)
+                    or (tmp2 == "week" and d >= 7)
+                    or (tmp2 == "month" and d >= 30)
+                ):
                     self.checkforupdate()
 
     def checkforupdate(self, showdialogifnotupdate=False):
         self.statusbar.showMessage(self.tr("checking for update..."))
 
         def aftcall(newver):
-            ver = self.ver.strip('vV')
+            ver = self.ver.strip("vV")
             if not newver:
                 if not showdialogifnotupdate:
                     return
@@ -627,13 +690,19 @@ class MainWin(MainWinBase):
                 if not self.updateDialog:
                     self.updateDialog = updateinfodialog(self)
                 self.updateDialog.setWindowIcon(self.windowIcon())
-                self.updateDialog.showdialog(ver, newver, "https://github.com/hustlei/QssStylesheetEditor/releases")
+                self.updateDialog.showdialog(
+                    ver,
+                    newver,
+                    "https://github.com/hustlei/QssStylesheetEditor/releases",
+                )
 
             from datetime import datetime
+
             today = datetime.now().date()
             self.config["update.lastcheckday"] = today
 
         from update import AsyncGetLatestVer, updateinfodialog
+
         self.t = AsyncGetLatestVer("hustlei", "QssStylesheetEditor")
         self.t.got.connect(aftcall)
         self.t.start()

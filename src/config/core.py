@@ -5,11 +5,13 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import os
+
 from tomlconfig import TomlConfig
 
 
 class Config(TomlConfig):
     """Config parser for program"""
+
     defaultfile = os.path.join(os.path.dirname(__file__), "config.toml")
     _current = None
     defaultOptions = {

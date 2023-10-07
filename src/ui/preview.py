@@ -36,68 +36,37 @@ load preview widgets for view sytle effect
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-from PyQt6.QtCore import Qt, QSize, QRect, QDate, QTime, QDateTime, QRegularExpression
-from PyQt6.QtGui import (QIcon, QPen, QBrush, QPixmap, QPainter, QLinearGradient, QRadialGradient, QConicalGradient,
-                         QDoubleValidator, QStandardItemModel, QKeySequence, QFont, QAction, QRegularExpressionValidator, QFileSystemModel)
-from PyQt6.QtWidgets import (
-    QWidget,
-    QApplication,
-    QLabel,
-    QLineEdit,
-    QTextEdit,
-    QPushButton,
-    QToolButton,
-    QCommandLinkButton,
-    QCheckBox,
-    QRadioButton,
-    QComboBox,
-    QSpinBox,
-    QDoubleSpinBox,
-    QDateEdit,
-    QTimeEdit,
-    QDateTimeEdit,
-    QCalendarWidget,
-    QSlider,
-    QProgressBar,
-    QScrollBar,
-    QDial,  # QLCDNumber, QKeySequenceEdit,
-    QHBoxLayout,
-    QVBoxLayout,
-    QGridLayout,
-    QFormLayout,
-    QGroupBox,
-    QScrollArea,
-    QStackedWidget,
-    QToolBox,
-    QTabWidget,
-    QSplitter,
-    QDockWidget,
-    QMdiArea,
-    QMessageBox,
-    QInputDialog,
-    QFileDialog,
-    QFontDialog,
-    QColorDialog,
-    QListWidget,
-    QTableWidget,
-    QTreeView,
-    QTreeWidget,
-    QListWidgetItem,
-    QTableWidgetItem,
-    QTreeWidgetItem,
-    QCompleter,
-    QMenu,
-    QToolBar,
-    QMainWindow,
-)
+from PyQt6.QtCore import (QDate, QDateTime, QRect, QRegularExpression, QSize,
+                          Qt, QTime)
+from PyQt6.QtGui import (QAction, QBrush, QConicalGradient, QDoubleValidator,
+                         QFileSystemModel, QFont, QIcon, QKeySequence,
+                         QLinearGradient, QPainter, QPen, QPixmap,
+                         QRadialGradient, QRegularExpressionValidator,
+                         QStandardItemModel)
+from PyQt6.QtWidgets import QDial  # QLCDNumber, QKeySequenceEdit,
+from PyQt6.QtWidgets import (QApplication, QCalendarWidget, QCheckBox,
+                             QColorDialog, QComboBox, QCommandLinkButton,
+                             QCompleter, QDateEdit, QDateTimeEdit, QDockWidget,
+                             QDoubleSpinBox, QFileDialog, QFontDialog,
+                             QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
+                             QInputDialog, QLabel, QLineEdit, QListWidget,
+                             QListWidgetItem, QMainWindow, QMdiArea, QMenu,
+                             QMessageBox, QProgressBar, QPushButton,
+                             QRadioButton, QScrollArea, QScrollBar, QSlider,
+                             QSpinBox, QSplitter, QStackedWidget, QTableWidget,
+                             QTableWidgetItem, QTabWidget, QTextEdit,
+                             QTimeEdit, QToolBar, QToolBox, QToolButton,
+                             QTreeView, QTreeWidget, QTreeWidgetItem,
+                             QVBoxLayout, QWidget)
+
 from .customeditor import SrcEditor
 
 # from res.img_rc import *
 
 
 class PreviewWidget(QTabWidget):
-    """widget that preview qss effect in previewpannel
-    """
+    """widget that preview qss effect in previewpannel"""
+
     def __init__(self):
         super().__init__()
         tab1 = QWidget(self)
@@ -171,7 +140,9 @@ class PreviewWidget(QTabWidget):
         text3 = QLineEdit("******")
         text3.setEchoMode(QLineEdit.EchoMode.Password)
         label4 = QLabel(self.tr("link label:"))
-        label5 = QLabel(self.tr("<a href='https://github.com/hustlei/'>github.com/hustlei</a>"))
+        label5 = QLabel(
+            self.tr("<a href='https://github.com/hustlei/'>github.com/hustlei</a>")
+        )
         label5.setOpenExternalLinks(True)
         label6 = QLabel(self.tr("icon label:"))
         label7 = QLabel("icon")
@@ -332,7 +303,11 @@ class PreviewWidget(QTabWidget):
         group5.setLayout(group5Layout)
         layout.addWidget(group5)
 
-        group5Layout.addWidget(QTextEdit(self.tr("If you do not leave me, I will be by your side until the end.")))
+        group5Layout.addWidget(
+            QTextEdit(
+                self.tr("If you do not leave me, I will be by your side until the end.")
+            )
+        )
 
         layout.addStretch(1)
 
@@ -360,30 +335,73 @@ class PreviewWidget(QTabWidget):
         layout.addWidget(group0)
 
         b1 = QPushButton(self.tr("Info"))
-        b1.clicked.connect(lambda: QMessageBox.information(self, "Info", self.tr("This is a message."), QMessageBox.Ok,
-                                                           QMessageBox.Ok))
+        b1.clicked.connect(
+            lambda: QMessageBox.information(
+                self,
+                "Info",
+                self.tr("This is a message."),
+                QMessageBox.Ok,
+                QMessageBox.Ok,
+            )
+        )
         b2 = QPushButton(self.tr("Question"))
-        b2.clicked.connect(lambda: QMessageBox.question(self, "question", self.tr("Are you sure?"), QMessageBox.No |
-                                                        QMessageBox.Yes, QMessageBox.Yes))
+        b2.clicked.connect(
+            lambda: QMessageBox.question(
+                self,
+                "question",
+                self.tr("Are you sure?"),
+                QMessageBox.No | QMessageBox.Yes,
+                QMessageBox.Yes,
+            )
+        )
         b3 = QPushButton(self.tr("Warning"))
-        b3.clicked.connect(lambda: QMessageBox.warning(self, "warning", self.tr("This is a warning."), QMessageBox.No |
-                                                       QMessageBox.Yes, QMessageBox.Yes))
+        b3.clicked.connect(
+            lambda: QMessageBox.warning(
+                self,
+                "warning",
+                self.tr("This is a warning."),
+                QMessageBox.No | QMessageBox.Yes,
+                QMessageBox.Yes,
+            )
+        )
         b4 = QPushButton(self.tr("Error"))
-        b4.clicked.connect(lambda: QMessageBox.critical(self, "error", self.tr("It's a error."), QMessageBox.No |
-                                                        QMessageBox.Yes, QMessageBox.Yes))
+        b4.clicked.connect(
+            lambda: QMessageBox.critical(
+                self,
+                "error",
+                self.tr("It's a error."),
+                QMessageBox.No | QMessageBox.Yes,
+                QMessageBox.Yes,
+            )
+        )
         b5 = QPushButton(self.tr("About"))
-        b5.clicked.connect(lambda: QMessageBox.about(self, "about", self.tr("About this software")))
+        b5.clicked.connect(
+            lambda: QMessageBox.about(self, "about", self.tr("About this software"))
+        )
         b6 = QPushButton(self.tr("Input"))  # ,"输入对话框"))
-        b6.clicked.connect(lambda: QInputDialog.getInt(self, self.tr("input"), self.tr("please input int")))
-        b6.clicked.connect(lambda: QInputDialog.getDouble(self, self.tr("input"), self.tr("please input float")))
         b6.clicked.connect(
-            lambda: QInputDialog.getItem(self, self.tr("input"), self.tr("please select"), ["aaa", "bbb"]))
+            lambda: QInputDialog.getInt(
+                self, self.tr("input"), self.tr("please input int")
+            )
+        )
+        b6.clicked.connect(
+            lambda: QInputDialog.getDouble(
+                self, self.tr("input"), self.tr("please input float")
+            )
+        )
+        b6.clicked.connect(
+            lambda: QInputDialog.getItem(
+                self, self.tr("input"), self.tr("please select"), ["aaa", "bbb"]
+            )
+        )
         b7 = QPushButton(self.tr("Color"))  # ,"颜色对话框"))
         b7.clicked.connect(lambda: QColorDialog.getColor())
         b8 = QPushButton(self.tr("Font"))  # ,"字体对话框"))
         b8.clicked.connect(lambda: QFontDialog.getFont())
         b9 = QPushButton(self.tr("OpenFile"))  # ,"打开对话框"))
-        b9.clicked.connect(lambda: QFileDialog.getOpenFileName(self, "open", "", "Text(*.txt *.text)"))
+        b9.clicked.connect(
+            lambda: QFileDialog.getOpenFileName(self, "open", "", "Text(*.txt *.text)")
+        )
         b10 = QPushButton(self.tr("SaveFile"))  # ,"保存对话框"))
         b10.clicked.connect(lambda: QFileDialog.getSaveFileName())
         layoutRow1.addWidget(b1)
@@ -462,7 +480,11 @@ class PreviewWidget(QTabWidget):
             # p=QPalette()
             # p.setColor(QPalette.Background,clr)
             # c.setPalette(p)
-            c.setStyleSheet("background: rgba({},{},{},100);".format(scroll1.value(), scroll2.value(), scroll3.value()))
+            c.setStyleSheet(
+                "background: rgba({},{},{},100);".format(
+                    scroll1.value(), scroll2.value(), scroll3.value()
+                )
+            )
 
         scroll1.valueChanged.connect(clr)
         scroll2.valueChanged.connect(clr)
@@ -681,7 +703,9 @@ class PreviewWidget(QTabWidget):
         inputText = QLineEdit()
         inputText.setPlaceholderText(self.tr("please input"))  # "请输入："))
         hbox.addWidget(inputText, 2, 1)
-        text = QTextEdit(self.tr("This is a textedit, span 3 rows and 2 columns."))  # "这是一个文本框，在QGridLayout中占三行两列。"))
+        text = QTextEdit(
+            self.tr("This is a textedit, span 3 rows and 2 columns.")
+        )  # "这是一个文本框，在QGridLayout中占三行两列。"))
         hbox.addWidget(text, 0, 2, 3, 2)
         group2.setLayout(hbox)
         layout.addWidget(group2)
@@ -721,14 +745,18 @@ class PreviewWidget(QTabWidget):
         d1 = QDockWidget("dock1", w1)
         d2 = QDockWidget("dock2", w1)
         d1.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea)
-        AllDockWidgetFeatures = (QDockWidget.DockWidgetFeature.DockWidgetClosable
-                                 | QDockWidget.DockWidgetFeature.DockWidgetMovable
-                                 | QDockWidget.DockWidgetFeature.DockWidgetFloatable
-                                 | QDockWidget.DockWidgetFeature.DockWidgetVerticalTitleBar)
+        AllDockWidgetFeatures = (
+            QDockWidget.DockWidgetFeature.DockWidgetClosable
+            | QDockWidget.DockWidgetFeature.DockWidgetMovable
+            | QDockWidget.DockWidgetFeature.DockWidgetFloatable
+            | QDockWidget.DockWidgetFeature.DockWidgetVerticalTitleBar
+        )
         d1.setFeatures(AllDockWidgetFeatures)
         d2.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetVerticalTitleBar)
         d3 = QDockWidget("dock3", w2)
-        d3.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.TopDockWidgetArea)
+        d3.setAllowedAreas(
+            Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.TopDockWidgetArea
+        )
         w1.resize(120, 120)
         splitter2.addWidget(w1)
         splitter2.addWidget(w2)
@@ -753,14 +781,18 @@ class PreviewWidget(QTabWidget):
 
         group = QGroupBox(self.tr("QGroupBox"))  # "QGroupBox控件"))
         hbox = QHBoxLayout()
-        hbox.addWidget(QLabel(self.tr("this is a QGroupBox widget")))  # "这是一个QGroupBox控件")))
+        hbox.addWidget(
+            QLabel(self.tr("this is a QGroupBox widget"))
+        )  # "这是一个QGroupBox控件")))
         group.setLayout(hbox)
         layout.addWidget(group)
 
         group = QGroupBox(self.tr("QGroupBox"))  # "QGroupBox控件"))
         group.setCheckable(True)
         hbox = QHBoxLayout()
-        hbox.addWidget(QLabel(self.tr("this is a checkable QGroupBox widget")))  # "这是一个QGroupBox控件")))
+        hbox.addWidget(
+            QLabel(self.tr("this is a checkable QGroupBox widget"))
+        )  # "这是一个QGroupBox控件")))
         group.setLayout(hbox)
         layout.addWidget(group)
 
@@ -918,8 +950,12 @@ class PreviewWidget(QTabWidget):
         t2.setCellWidget(1, 1, c)
         t2.setItem(1, 2, QTableWidgetItem("11"))
         t2.resizeColumnsToContents()
-        t2.setEditTriggers(QTableWidget.EditTrigger.EditKeyPressed | QTableWidget.EditTrigger.SelectedClicked | QTableWidget.EditTrigger.AnyKeyPressed
-                           | QTableWidget.EditTrigger.DoubleClicked)
+        t2.setEditTriggers(
+            QTableWidget.EditTrigger.EditKeyPressed
+            | QTableWidget.EditTrigger.SelectedClicked
+            | QTableWidget.EditTrigger.AnyKeyPressed
+            | QTableWidget.EditTrigger.DoubleClicked
+        )
 
         lay.addWidget(t1)
         lay.addWidget(t2)
@@ -938,7 +974,9 @@ class PreviewWidget(QTabWidget):
         node11 = QTreeWidgetItem()
         node11.setText(0, "child1")
         icon = QIcon(":appres.img/book_angle.png")
-        icon.addPixmap(QPixmap(":appres.img/book_open.png"), QIcon.Mode.Normal, QIcon.State.On)
+        icon.addPixmap(
+            QPixmap(":appres.img/book_open.png"), QIcon.Mode.Normal, QIcon.State.On
+        )
         node11.setIcon(0, icon)
         nodea = QTreeWidgetItem()
         nodea.setText(0, "red")
@@ -973,7 +1011,9 @@ class PreviewWidget(QTabWidget):
         """Custom widgets for preview panel"""
 
         # tools
-        def createAct(text, tip=None, shortcut=None, iconimg=None, checkable=False, slot=None):
+        def createAct(
+            text, tip=None, shortcut=None, iconimg=None, checkable=False, slot=None
+        ):
             action = QAction(self.tr(text), self)
             if iconimg is not None:
                 action.setIcon(QIcon(iconimg))
@@ -994,26 +1034,34 @@ class PreviewWidget(QTabWidget):
 
         srcediter = SrcEditor()
         toolbar = QToolBar("source")
-        actnew = createAct(self.tr("&New", "&New"),
-                           self.tr("new") + keys2str(QKeySequence.StandardKey.New),
-                           QKeySequence.StandardKey.New,
-                           ':appres.img/NewDocument.png',
-                           slot=srcediter.clear)
-        actopen = createAct(self.tr("&Open"),
-                            self.tr("Open") + keys2str(QKeySequence.StandardKey.Open),
-                            QKeySequence.StandardKey.Open,
-                            ':appres.img/openHS.png',
-                            slot=srcediter.open)
-        actsave = createAct(self.tr("&Save"),
-                            self.tr("Save") + keys2str(QKeySequence.StandardKey.Save),
-                            QKeySequence.StandardKey.Save,
-                            ':appres.img/save.png',
-                            slot=srcediter.saveslot)
-        actsaveas = createAct(self.tr("&Save as..."),
-                              self.tr("Save as..."),
-                              None,
-                              ':appres.img/SaveAs.png',
-                              slot=lambda: {srcediter.saveas(), actsave.setEnabled(False)})
+        actnew = createAct(
+            self.tr("&New", "&New"),
+            self.tr("new") + keys2str(QKeySequence.StandardKey.New),
+            QKeySequence.StandardKey.New,
+            ":appres.img/NewDocument.png",
+            slot=srcediter.clear,
+        )
+        actopen = createAct(
+            self.tr("&Open"),
+            self.tr("Open") + keys2str(QKeySequence.StandardKey.Open),
+            QKeySequence.StandardKey.Open,
+            ":appres.img/openHS.png",
+            slot=srcediter.open,
+        )
+        actsave = createAct(
+            self.tr("&Save"),
+            self.tr("Save") + keys2str(QKeySequence.StandardKey.Save),
+            QKeySequence.StandardKey.Save,
+            ":appres.img/save.png",
+            slot=srcediter.saveslot,
+        )
+        actsaveas = createAct(
+            self.tr("&Save as..."),
+            self.tr("Save as..."),
+            None,
+            ":appres.img/SaveAs.png",
+            slot=lambda: {srcediter.saveas(), actsave.setEnabled(False)},
+        )
         toolbar.addAction(actnew)
         toolbar.addAction(actopen)
         toolbar.addAction(actsave)
@@ -1021,26 +1069,34 @@ class PreviewWidget(QTabWidget):
         tab.addToolBar(toolbar)
 
         toolbar2 = QToolBar("edit")
-        actundo = createAct(self.tr("&Undo"),
-                            self.tr("Undo") + keys2str(QKeySequence.StandardKey.Undo),
-                            QKeySequence.StandardKey.Undo,
-                            ':appres.img/undo.png',
-                            slot=srcediter.undo)
-        actredo = createAct(self.tr("&Redo"),
-                            self.tr("Redo") + keys2str(QKeySequence.StandardKey.Redo),
-                            QKeySequence.StandardKey.Redo,
-                            ':appres.img/redo.png',
-                            slot=srcediter.redo)
-        actfind = createAct(self.tr("&Find"),
-                            self.tr("Find") + keys2str(QKeySequence.StandardKey.Find),
-                            QKeySequence.StandardKey.Find,
-                            ':appres.img/find.png',
-                            slot=srcediter.find)
-        actreplace = createAct(self.tr("&Replace"),
-                               self.tr("Replace") + keys2str(QKeySequence.StandardKey.Replace),
-                               QKeySequence.StandardKey.Replace,
-                               ':appres.img/replace.png',
-                               slot=srcediter.replace)
+        actundo = createAct(
+            self.tr("&Undo"),
+            self.tr("Undo") + keys2str(QKeySequence.StandardKey.Undo),
+            QKeySequence.StandardKey.Undo,
+            ":appres.img/undo.png",
+            slot=srcediter.undo,
+        )
+        actredo = createAct(
+            self.tr("&Redo"),
+            self.tr("Redo") + keys2str(QKeySequence.StandardKey.Redo),
+            QKeySequence.StandardKey.Redo,
+            ":appres.img/redo.png",
+            slot=srcediter.redo,
+        )
+        actfind = createAct(
+            self.tr("&Find"),
+            self.tr("Find") + keys2str(QKeySequence.StandardKey.Find),
+            QKeySequence.StandardKey.Find,
+            ":appres.img/find.png",
+            slot=srcediter.find,
+        )
+        actreplace = createAct(
+            self.tr("&Replace"),
+            self.tr("Replace") + keys2str(QKeySequence.StandardKey.Replace),
+            QKeySequence.StandardKey.Replace,
+            ":appres.img/replace.png",
+            slot=srcediter.replace,
+        )
         toolbar2.addAction(actredo)
         toolbar2.addAction(actundo)
         toolbar2.addAction(actfind)
@@ -1048,7 +1104,9 @@ class PreviewWidget(QTabWidget):
         tab.addToolBar(toolbar2)
 
         toolbar3 = QToolBar("preview")
-        actpreview = createAct(self.tr("Preview"), self.tr("Preview custom ui using qss."))
+        actpreview = createAct(
+            self.tr("Preview"), self.tr("Preview custom ui using qss.")
+        )
         actpreview.setFont(QFont("SimHei, STHeiti, Arial", 12, QFont.Weight.Medium))
         toolbar3.addAction(actpreview)
         tab.addToolBar(toolbar3)
@@ -1056,16 +1114,20 @@ class PreviewWidget(QTabWidget):
         tab.setCentralWidget(srcediter)
 
         tab.statusbar = tab.statusBar()
-        tab.statusbar.showMessage(self.tr("Define a class named 'MainWindow' and press the preview button."))
+        tab.statusbar.showMessage(
+            self.tr("Define a class named 'MainWindow' and press the preview button.")
+        )
 
         actpreview.triggered.connect(srcediter.preview)
         actsave.setEnabled(False)
-        srcediter.textChanged.connect(lambda: {actsave.setEnabled(srcediter.isModified())})
+        srcediter.textChanged.connect(
+            lambda: {actsave.setEnabled(srcediter.isModified())}
+        )
 
 
 if __name__ == "__main__":
-    import sys
     import os
+    import sys
 
     os.chdir(os.path.join(os.path.dirname(__file__), ".."))
     app = QApplication(sys.argv)

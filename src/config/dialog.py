@@ -6,22 +6,23 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 
 import os
 
-from PyQt6.QtGui import QPainter
-from PyQt6.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QListWidget, QStackedWidget, QGroupBox,
-                             QLabel, QSpinBox, QPushButton, QComboBox, QFormLayout, QDialog, QCheckBox, QMessageBox,
-                             QStyleOption, QStyle)
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
+                             QFormLayout, QGroupBox, QHBoxLayout, QLabel,
+                             QListWidget, QMessageBox, QPushButton, QSpinBox,
+                             QStackedWidget, QVBoxLayout, QWidget)
 
 
 def setValue(vartobeassign):
     def innerset(value):
-        vartobeassign = value
+        pass
 
     return innerset
 
 
 class ConfDialog(QDialog):
     """config dialog"""
+
     def __init__(self, mainwin, parent=None):
         super(ConfDialog, self).__init__(parent)
         # self.setAttribute(Qt.WA_StyledBackground)
@@ -86,7 +87,9 @@ class ConfDialog(QDialog):
         g2 = QGroupBox(self.tr("Advanced"))
         labeladv1 = QLabel(self.tr("Export qss When save qsst:"))
         self.checkboxAutoExportQss = QCheckBox()
-        self.checkboxAutoExportQss.setToolTip(self.tr("Option for whether export qss when save qsst file each time."))
+        self.checkboxAutoExportQss.setToolTip(
+            self.tr("Option for whether export qss when save qsst file each time.")
+        )
         layh1 = QHBoxLayout()
         layh1.addWidget(labeladv1)
         layh1.addStretch(1)
@@ -176,25 +179,45 @@ class ConfDialog(QDialog):
         self.okbtn.clicked.connect(lambda: (self.apply(), self.close()))
 
         # actions
-        self.recentcountspin.valueChanged.connect(lambda x: self.changedOptions.__setitem__("file.recentcount", x))
+        self.recentcountspin.valueChanged.connect(
+            lambda x: self.changedOptions.__setitem__("file.recentcount", x)
+        )
         self.langCombo.currentIndexChanged.connect(
-            lambda i: self.changedOptions.__setitem__("general.language", self.langCombo.itemData(i)))
-        self.checkboxUpdate.stateChanged.connect(lambda b: self.changedOptions.update({"update.autocheck": b}))
+            lambda i: self.changedOptions.__setitem__(
+                "general.language", self.langCombo.itemData(i)
+            )
+        )
+        self.checkboxUpdate.stateChanged.connect(
+            lambda b: self.changedOptions.update({"update.autocheck": b})
+        )
         self.updateCombo.currentIndexChanged.connect(
-            lambda i: self.changedOptions.__setitem__("update.checkfreq", self.updateCombo.itemData(i)))
+            lambda i: self.changedOptions.__setitem__(
+                "update.checkfreq", self.updateCombo.itemData(i)
+            )
+        )
         self.checkboxAutoExportQss.stateChanged.connect(
-            lambda b: self.changedOptions.update({"advance.autoexportqss": b}))
-        self.skinCombo.currentTextChanged.connect(lambda t:
-                                                  (self.applyskin(t), self.changedOptions.update({"general.skin": t})))
+            lambda b: self.changedOptions.update({"advance.autoexportqss": b})
+        )
+        self.skinCombo.currentTextChanged.connect(
+            lambda t: (
+                self.applyskin(t),
+                self.changedOptions.update({"general.skin": t}),
+            )
+        )
 
     def applyskin(self, skinfile):
         try:
-            with open(os.path.join(self.skindir, skinfile), 'r', encoding='utf-8') as f:
+            with open(os.path.join(self.skindir, skinfile), "r", encoding="utf-8") as f:
                 self.win.currentUIqss = f.read()
                 self.win.setStyleSheet(self.win.currentUIqss)
         except Exception:
-            QMessageBox.information(self, "Skin Error", self.tr("Apply skin error, please check the qss skin."),
-                                    QMessageBox.Ok, QMessageBox.Ok)
+            QMessageBox.information(
+                self,
+                "Skin Error",
+                self.tr("Apply skin error, please check the qss skin."),
+                QMessageBox.Ok,
+                QMessageBox.Ok,
+            )
 
     # def showEvent(self, QShowEvent):
     def initConfOptions(self):
@@ -213,40 +236,60 @@ class ConfDialog(QDialog):
         self.applyskin(skin)
 
         from i18n.language import Language
+
         lang = Language.lang
         for l in Language.getLangs():
             if l["lang"].replace("-", "_") == lang.replace("-", "_"):
                 self.langCombo.setCurrentText(l["nativename"])
                 break
-        self.checkboxAutoExportQss.setChecked(bool(self.win.config["advance.autoexportqss"]))
+        self.checkboxAutoExportQss.setChecked(
+            bool(self.win.config["advance.autoexportqss"])
+        )
 
     def initOptionActions(self):
         self.optionActions = {
             # option: [applyaction, updateUIaction]
-            "general.language":
-            [lambda l: (self.chLang(l), self.win.config.setChild("general.language", l)), self.updateLangCombo],
+            "general.language": [
+                lambda l: (
+                    self.chLang(l),
+                    self.win.config.setChild("general.language", l),
+                ),
+                self.updateLangCombo,
+            ],
             "file.recentcount": [
-                lambda n: (setValue(self.win.recent.maxcount)(n), self.win.config.setChild("file.recentcount", n)),
-                self.recentcountspin.setValue
+                lambda n: (
+                    setValue(self.win.recent.maxcount)(n),
+                    self.win.config.setChild("file.recentcount", n),
+                ),
+                self.recentcountspin.setValue,
             ],
             "advance.autoexportqss": [
                 lambda b: self.win.config.setChild("advance.autoexportqss", bool(b)),
-                self.checkboxAutoExportQss.setChecked
+                self.checkboxAutoExportQss.setChecked,
             ],
-            "general.skin":
-            [lambda t: (self.win.config.setChild("general.skin", t), self.applyskin(t)), self.skinCombo.setCurrentText],
-            "update.autocheck":
-            [lambda t: self.win.config.setChild("update.autocheck", bool(t)), self.checkboxUpdate.setChecked],
+            "general.skin": [
+                lambda t: (
+                    self.win.config.setChild("general.skin", t),
+                    self.applyskin(t),
+                ),
+                self.skinCombo.setCurrentText,
+            ],
+            "update.autocheck": [
+                lambda t: self.win.config.setChild("update.autocheck", bool(t)),
+                self.checkboxUpdate.setChecked,
+            ],
             "update.checkfreq": [
                 lambda t: self.win.config.setChild("update.checkfreq", t),
-                lambda t: self.updateCombo.setCurrentIndex(self.updateCombo.findData(t))
+                lambda t: self.updateCombo.setCurrentIndex(
+                    self.updateCombo.findData(t)
+                ),
             ],
         }
 
     def fillLangItems(self, combo):
-        """set combo list for language
-        """
+        """set combo list for language"""
         from i18n.language import Language
+
         langs = Language.getLangs()
         for l in langs:
             combo.addItem(l["nativename"], l["lang"])
@@ -269,12 +312,16 @@ class ConfDialog(QDialog):
         self.win.config["general.language"] = lang
         print("restart soft to enable.")
         if self.alertChLang:
-            QMessageBox.information(self, self.tr("Change Language Info"),
-                                    self.tr("You must restart soft to enable luanguage change."))
+            QMessageBox.information(
+                self,
+                self.tr("Change Language Info"),
+                self.tr("You must restart soft to enable luanguage change."),
+            )
 
     def updateLangCombo(self, lang=None):
         """update setting ui to lang"""
         from i18n.language import Language
+
         if not lang:
             lang = Language.lang
         for l in Language.getLangs():
@@ -283,8 +330,7 @@ class ConfDialog(QDialog):
                 break
 
     def apply(self):
-        """get config and apply to app.
-        """
+        """get config and apply to app."""
         recentlist = self.win.config["file.recent"]
         self.win.recent.setList(recentlist)
 

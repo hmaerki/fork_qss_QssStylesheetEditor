@@ -11,11 +11,13 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import os
+
 from PyQt6.QtGui import QAction
 
 
-class Recent():
+class Recent:
     """Class for add recent opened file path to recent menu"""
+
     def __init__(self, openfn, menu=None):
         super().__init__()
         self._pathes = []

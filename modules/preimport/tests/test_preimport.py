@@ -23,7 +23,6 @@ def test_preimport(capsys):
 
 def test_already_imported(capsys):
     print("")
-    import os
     preimport('os')
     out, err = capsys.readouterr()
     print(out)
