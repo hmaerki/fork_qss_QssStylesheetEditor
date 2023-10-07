@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
-from PyQt5.Qsci import QsciScintilla
-from PyQt5.QtWidgets import (QMainWindow, QWidget, QHBoxLayout, QGridLayout, QVBoxLayout, QCheckBox, QPushButton,
+from PyQt6.Qsci import QsciScintilla
+from PyQt6.QtWidgets import (QMainWindow, QWidget, QHBoxLayout, QGridLayout, QVBoxLayout, QCheckBox, QPushButton,
                              QLabel, QLineEdit, QSpacerItem, QSizePolicy)
-from PyQt5.QtCore import Qt, QMargins
+from PyQt6.QtCore import Qt, QMargins
 
 
 class SearchDialog(QMainWindow):
@@ -85,7 +85,7 @@ class SearchDialog(QMainWindow):
         self.setCentralWidget(mainwidget)
         mainwidget.setFixedHeight(200)
 
-        # from PyQt5.QtCore import QTextCodec
+        # from PyQt6.QtCore import QTextCodec
         # QTextCodec.setCodecForTr(QTextCodec.codecForName("UTF-8"))无效
         self.__reverseCheckbox = QCheckBox(self.tr("reverse"))  # ,"反向查找"))
         caseSensitiveCheckbox = QCheckBox(self.tr("case sensitive"))  # ,"匹配大小写"))
@@ -206,7 +206,7 @@ class SearchDialog(QMainWindow):
 
 
 if __name__ == "__main__":
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
     import sys
 
     app = QApplication(sys.argv)

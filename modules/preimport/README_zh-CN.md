@@ -22,7 +22,7 @@ pip install preimport
 ~~~python
 from preimport import preimport
 
-preimport('numpy', 'PyQt5')
+preimport('numpy', 'PyQt6')
 preimport(['sys', 'os'])
 ~~~
 
@@ -39,8 +39,8 @@ preimport(['sys', 'os'])
 >>> Preimporting 'os'        ...   [Note]:os already imported.
 >>>
 >>> # 如果系统未安装模块
->>> preimport('PyQt5')
->>> Preimporting 'PyQt5'   ...   [Failed]:ModuleNotFound.
+>>> preimport('PyQt6')
+>>> Preimporting 'PyQt6'   ...   [Failed]:ModuleNotFound.
 >>>
 >>> # 模块名称错误
 >>> preimport(1)

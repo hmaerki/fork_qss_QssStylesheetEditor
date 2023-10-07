@@ -3,8 +3,8 @@
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
-from PyQt5.QtGui import QPalette, QFont, QColor
-from PyQt5.QtWidgets import (QDialog, QHBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, QPushButton, qApp,
+from PyQt6.QtGui import QPalette, QFont, QColor
+from PyQt6.QtWidgets import (QDialog, QHBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, QPushButton, qApp,
                              QColorDialog, QVBoxLayout, QTextEdit)
 
 
@@ -200,7 +200,7 @@ class CodeDialog(QDialog):
 
 
 if __name__ == "__main__":
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
     import sys
 
     app = QApplication(sys.argv)

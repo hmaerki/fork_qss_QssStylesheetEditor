@@ -4,7 +4,7 @@
 Copyright (c) 2019 lileilei. <hustlei@sina.cn>
 """
 
-from PyQt5.Qsci import QsciLexerCustom
+from PyQt6.Qsci import QsciLexerCustom
 
 
 class QsciLexerText(QsciLexerCustom):

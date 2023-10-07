@@ -22,7 +22,7 @@ pip install preimport
 ~~~python
 from preimport import preimport
 
-preimport('numpy', 'PyQt5')
+preimport('numpy', 'PyQt6')
 preimport(['sys', 'os'])
 ~~~
 
@@ -38,8 +38,8 @@ It will be like following when using preimport in cli.
 >>> Preimporting 'os'        ...   [Note]:os already imported.
 >>>
 >>> # if module not installed
->>> preimport('PyQt5')
->>> Preimporting 'PyQt5'   ...   [Failed]:ModuleNotFound.
+>>> preimport('PyQt6')
+>>> Preimporting 'PyQt6'   ...   [Failed]:ModuleNotFound.
 >>>
 >>> # error module name
 >>> preimport(1)

@@ -4,7 +4,7 @@
 from pytest import fixture
 
 import sys
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 #from CodeEditor import Editor
 
 # @fixture(scope="function")

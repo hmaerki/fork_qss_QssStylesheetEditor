@@ -179,4 +179,4 @@ and then press 'Preview' button to preview the qss.
 # License
 You can use this software for free in open source projects that are licensed under the GPL. but there is an exception: if you only use it to generate qss file for commercial product, the product's source code can be shipped with whatever license you want.
 
-If you don't want to open your code up to the public, you can purchase a commercial license for USD 100 per developer, and also should purchase a commercial license for PyQt5.
+If you don't want to open your code up to the public, you can purchase a commercial license for USD 100 per developer, and also should purchase a commercial license for PyQt6.

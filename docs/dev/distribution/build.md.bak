@@ -5,7 +5,7 @@
 dist文件夹中准备好以下文件：
 
 + libpython文件夹：python3.7的主要文件（python3.dll,python37.dll等）
-+ Lib文件夹：PyQt5和requests包
++ Lib文件夹：PyQt6和requests包
 + DLLs文件夹：Windows共享库（msvcp140.dll,cvruntime140.dll,apims-win-cr-\*.dll等）
 + scripts文件夹：main.py
 + 启动文件：AppStart.exe、AppStart.vbs等

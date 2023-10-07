@@ -5,9 +5,9 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import time
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QApplication, QSplashScreen
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import QApplication, QSplashScreen
 from preimport import preimport
 
 
@@ -41,7 +41,7 @@ class SplashScreen(QSplashScreen):
     def loadProgress(self):
         """Preimport modules to improve start speed
         Following modules are imported before splash:
-        PyQt5, PyQt5.QtCore, PyQt5.QtGui, PyQt5.QtWidgets are imported before Splash.
+        PyQt6, PyQt6.QtCore, PyQt6.QtGui, PyQt6.QtWidgets are imported before Splash.
         i18n is imported before Splash, for Splash using i18n.
         config is imported before i18n, for i18n using config.
         """
@@ -53,8 +53,8 @@ class SplashScreen(QSplashScreen):
         time.sleep(0.1)
         self.setProgressText(15)
         time.sleep(0.1)
-        self.setProgressText(20)  # PyQt5, i18n are loaded, so before 20% do nothing
-        preimport(["PyQt5.Qsci"])
+        self.setProgressText(20)  # PyQt6, i18n are loaded, so before 20% do nothing
+        preimport(["PyQt6.Qsci"])
         self.setProgressText(40)
         preimport(["res", "res.img_rc"])
         self.setProgressText(60)
@@ -64,12 +64,12 @@ class SplashScreen(QSplashScreen):
         self.setProgressText(100)
 
 
-# from PyQt5.QtCore import QDate, QDateTime
-#         from PyQt5.QtGui import (QBrush, QColor, QBitmap, QIcon, QImage, QPicture, QCursor, QPainter, QKeySequence,
+# from PyQt6.QtCore import QDate, QDateTime
+#         from PyQt6.QtGui import (QBrush, QColor, QBitmap, QIcon, QImage, QPicture, QCursor, QPainter, QKeySequence,
 #                                  QFont, QPen, QMovie, qGray)
 #         # (Base64, Base64url,Bigfloat,DateTimeString,Decimal,QDir,QRegExp,QRegularExpression,QTimer,QUrl)
 # # QtWidgets 常用控件
-# from PyQt5.QtWidgets import (
+# from PyQt6.QtWidgets import (
 #     QAction, QActionGroup, QApplication, QBoxLayout, QCalendarWidget, QCheckBox, QColorDialog, QComboBox,
 #     QDesktopWidget, QDialog, QDockWidget, QDoubleSpinBox, QFileDialog, QFontComboBox, QFontDialog, QFormLayout,
 #     QFrame, QGesture, QGraphicsView, QGraphicsWidget, QGridLayout, QGroupBox, QHBoxLayout, QHeaderView,
@@ -83,8 +83,8 @@ class SplashScreen(QSplashScreen):
 #     QUndoStack, QUndoView, QVBoxLayout, QWhatsThis, QWidget, QWidgetAction, QWidgetItem, qApp)
 
 # # QtSci 所有组件
-# from PyQt5 import Qsci
-# from PyQt5.Qsci import (QsciLexer, QsciLexerAVS, QsciLexerBash, QsciLexerBatch, QsciLexerCMake, QsciLexerCPP,
+# from PyQt6 import Qsci
+# from PyQt6.Qsci import (QsciLexer, QsciLexerAVS, QsciLexerBash, QsciLexerBatch, QsciLexerCMake, QsciLexerCPP,
 #                         QsciLexerCSS, QsciLexerCSharp, QsciLexerCoffeeScript, QsciLexerCustom, QsciLexerD,
 #                         QsciLexerDiff, QsciLexerFortran, QsciLexerFortran77, QsciLexerHTML, QsciLexerIDL,
 #                         QsciLexerJSON, QsciLexerJava, QsciLexerJavaScript, QsciLexerLua, QsciLexerMakefile,

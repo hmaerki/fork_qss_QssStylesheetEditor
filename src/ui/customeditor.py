@@ -6,9 +6,9 @@ import sys
 from os import path
 from importlib import import_module, reload
 from CodeEditor import Editor
-from PyQt5.Qsci import QsciLexer, QsciLexerPython
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMessageBox, QWidget, QFileDialog
+from PyQt6.Qsci import QsciLexer, QsciLexerPython
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QMessageBox, QWidget, QFileDialog
 from data import cache
 
 
@@ -60,9 +60,9 @@ class SrcEditor(Editor):
 
 import sys
 import os
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 """
             file.write(pretext)
             file.write(self.text().replace('\t', '    '))

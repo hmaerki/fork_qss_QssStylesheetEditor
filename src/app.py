@@ -9,7 +9,7 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 
 import sys
 import os
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 from splash import SplashScreen
 from i18n.language import Language
 

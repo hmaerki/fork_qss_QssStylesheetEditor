@@ -6,8 +6,8 @@ Copyright (c) 2019 lileilei. <hustlei@sina.cn>
 
 import sys
 
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout
+from PyQt6.QtGui import QColor
+from PyQt6.QtWidgets import QApplication, QWidget, QHBoxLayout
 
 sys.path.append("..")
 from CodeEditor import Editor
@@ -25,7 +25,7 @@ edt.setText(text)
 edt.setLanguage("Text")
 edt.setColor(QColor("#FF0000"))
 edt.setFontSize(20)
-from PyQt5.Qsci import QsciScintilla
+from PyQt6.Qsci import QsciScintilla
 
 edt.setEdgeMode(QsciScintilla.EdgeLine)
 

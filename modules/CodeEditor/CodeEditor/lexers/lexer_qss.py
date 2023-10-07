@@ -5,8 +5,8 @@ Copyright (c) 2019 lileilei. <hustlei@sina.cn>
 """
 import re
 
-from PyQt5.Qsci import QsciScintilla, QsciLexerCustom, QsciAPIs
-from PyQt5.QtGui import QColor, QFont
+from PyQt6.Qsci import QsciScintilla, QsciLexerCustom, QsciAPIs
+from PyQt6.QtGui import QColor, QFont
 
 
 class QsciLexerQSS(QsciLexerCustom):
@@ -384,7 +384,7 @@ class QsciLexerQSS(QsciLexerCustom):
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication, QStyleFactory
+    from PyQt6.QtWidgets import QApplication, QStyleFactory
     import sys
 
     myCodeSample = r"""

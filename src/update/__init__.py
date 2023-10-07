@@ -5,9 +5,9 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import requests
-from PyQt5.QtCore import QUrl, QThread, pyqtSignal
-from PyQt5.QtGui import QDesktopServices, QFont, QPixmap
-from PyQt5.QtWidgets import QDialog, QHBoxLayout, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtCore import QUrl, QThread, pyqtSignal
+from PyQt6.QtGui import QDesktopServices, QFont, QPixmap
+from PyQt6.QtWidgets import QDialog, QHBoxLayout, QVBoxLayout, QLabel, QPushButton
 
 
 def getLatestVer(githubname, projname):  # hustlei #QssStylesheetEditor
@@ -97,7 +97,7 @@ class updateinfodialog(QDialog):
 
 if __name__ == "__main__":
     print(getLatestVer("hustlei", "QssStylesheetEditor"))
-    from PyQt5.QtWidgets import *
+    from PyQt6.QtWidgets import *
     import sys
     app = QApplication(sys.argv)
     d = updateinfodialog()

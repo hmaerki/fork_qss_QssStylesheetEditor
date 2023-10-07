@@ -4,9 +4,9 @@
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-from PyQt5.QtCore import Qt, QThread
+from PyQt6.QtCore import Qt, QThread
 
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 
 
 class TestMain():

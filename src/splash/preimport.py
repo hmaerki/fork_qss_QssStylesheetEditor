@@ -18,7 +18,7 @@ def preload(moduleNames: Iterable[str]):
 
     Should be called at the very start of the program.
 
-    :param moduleNames:  For example ("PyQt5", "PyQt5.QtCore").
+    :param moduleNames:  For example ("PyQt6", "PyQt6.QtCore").
     """
     for module_name in moduleNames:
         if module_name not in sys.modules:

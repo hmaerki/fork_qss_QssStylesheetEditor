@@ -5,10 +5,10 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import sys
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtGui import (QFont, QFontMetrics, QKeyEvent, QColor, QDropEvent)
-from PyQt5 import Qsci
-from PyQt5.Qsci import QsciScintilla, QsciLexer
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtGui import (QFont, QFontMetrics, QKeyEvent, QColor, QDropEvent)
+from PyQt6 import Qsci
+from PyQt6.Qsci import QsciScintilla, QsciLexer
 from CodeEditor import lexers
 from CodeEditor.search import SearchDialog
 from CodeEditor.settings import EditorSettings

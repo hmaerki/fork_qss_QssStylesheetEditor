@@ -49,7 +49,7 @@ config editor:
 
 ~~~python
 from CodeEditor import editor
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 edt = editor()
 # config method

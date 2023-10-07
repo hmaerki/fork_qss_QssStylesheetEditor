@@ -6,11 +6,11 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 
 import os
 
-from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QListWidget, QStackedWidget, QGroupBox,
+from PyQt6.QtGui import QPainter
+from PyQt6.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QListWidget, QStackedWidget, QGroupBox,
                              QLabel, QSpinBox, QPushButton, QComboBox, QFormLayout, QDialog, QCheckBox, QMessageBox,
                              QStyleOption, QStyle)
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 
 def setValue(vartobeassign):

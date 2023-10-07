@@ -1,7 +1,7 @@
 """Wrapper for Qsci.QsciScintilla enumerations.
 """
-from PyQt5.Qsci import QsciScintilla
-from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt6.Qsci import QsciScintilla
+from PyQt6.QtCore import QCoreApplication, Qt
 from CodeEditor.lang import language_extensions
 
 

@@ -5,7 +5,7 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import re
-from PyQt5.QtGui import QColor
+from PyQt6.QtGui import QColor
 
 class Qsst():
     """qss template"""
@@ -62,7 +62,7 @@ class Qsst():
         self.codeBlocks = self.reCodeBlock.findall(self.srctext)
         if self.codeBlocks:
             try:
-                eval("from PyQt5.QtGui import QPalette")
+                eval("from PyQt6.QtGui import QPalette")
                 for code in self.codeBlocks:
                     exec(code)
             except Exception:

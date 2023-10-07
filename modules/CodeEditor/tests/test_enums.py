@@ -1,4 +1,4 @@
-from PyQt5.Qsci import QsciScintilla
+from PyQt6.Qsci import QsciScintilla
 from setting_enums import SettingEnums
 
 def test_basic():

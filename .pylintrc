@@ -1,7 +1,7 @@
 [MASTER]
 init-hook='base_dir="QssStylesheetEditor"; import sys,os,re; _re=re.search(r".+[\\\/]" + base_dir, os.getcwd()); project_dir = _re.group() if _re else os.path.join(os.getcwd(), base_dir); sys.path.append(project_dir); sys.path.append(project_dir+"/src")'
 
-extension-pkg-whitelist=PyQt5,
+extension-pkg-whitelist=PyQt6,
                         sip,
                         pytest
 ignore=.git, dist, build, bak, toml, splash.py
@@ -29,8 +29,8 @@ suggestion-mode=yes
 unsafe-load-any-extension=yes
 
 [TYPECHECK]
-ignored-modules = PyQt5, sip, chardet
-ignored-classes = PyQt5, sip, chardet
+ignored-modules = PyQt6, sip, chardet
+ignored-classes = PyQt6, sip, chardet
 # http://www.itkeyword.com/doc/7378082288593243x373/how-do-i-get-pylint-to-recognize-numpy-members
 
 
@@ -177,7 +177,7 @@ max-complexity=15 #12
 
 allow-any-import-level=yes
 # Force import order to recognize a module as part of a third party library.
-known-third-party=enchant, PyQt5, sip
+known-third-party=enchant, PyQt6, sip
 allow-wildcard-with-all=yes
 
 

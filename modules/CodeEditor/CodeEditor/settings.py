@@ -7,11 +7,11 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import os
-from PyQt5.QtCore import Qt, QVariant, QCoreApplication, QSize, pyqtSignal
-from PyQt5.QtGui import QColor, QPalette, QFont
-from PyQt5.QtWidgets import (QWidget, QGroupBox, QVBoxLayout, QPushButton, QLabel, QHBoxLayout, QSpinBox, QCheckBox,
+from PyQt6.QtCore import Qt, QVariant, QCoreApplication, QSize, pyqtSignal
+from PyQt6.QtGui import QColor, QPalette, QFont
+from PyQt6.QtWidgets import (QWidget, QGroupBox, QVBoxLayout, QPushButton, QLabel, QHBoxLayout, QSpinBox, QCheckBox,
                              QComboBox, QColorDialog, QFontComboBox, QScrollArea)
-from PyQt5.Qsci import QsciScintilla
+from PyQt6.Qsci import QsciScintilla
 from .setting_enums import EnumError, SettingEnums
 
 
