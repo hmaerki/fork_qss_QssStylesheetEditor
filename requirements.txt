@@ -5,5 +5,5 @@ toml>=0.10.0
 tomlconfig>=1.2.1
 PyQt6
 PyQt6-sip
-QScintilla
-CodeEditor>=1.1.0
+PyQt6-QScintilla
+CodeEditor

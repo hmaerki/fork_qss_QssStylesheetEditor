@@ -19,13 +19,13 @@ class SplashScreen(QSplashScreen):
         super(SplashScreen, self).__init__(pixmap)
         # self.setMask(splash_pix.mask())
         # self.raise_()
-        self.labelAlignment = int(Qt.AlignBottom | Qt.AlignHCenter | Qt.AlignAbsolute)
+        self.labelAlignment = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
         self.show()
-        QApplication.flush()
+        # QApplication.flush()
 
     def showMessage(self, msg):
         """Show the progress message on the splash image"""
-        super(SplashScreen, self).showMessage(msg, self.labelAlignment, Qt.white)
+        super(SplashScreen, self).showMessage(msg, self.labelAlignment, Qt.GlobalColor.white)
         QApplication.processEvents()
 
     def clearMessage(self):

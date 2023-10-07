@@ -36,9 +36,9 @@ load preview widgets for view sytle effect
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-from PyQt6.QtCore import Qt, QSize, QRect, QDate, QTime, QDateTime, QRegExp
+from PyQt6.QtCore import Qt, QSize, QRect, QDate, QTime, QDateTime
 from PyQt6.QtGui import (QIcon, QPen, QBrush, QPixmap, QPainter, QLinearGradient, QRadialGradient, QConicalGradient,
-                         QDoubleValidator, QRegExpValidator, QStandardItemModel, QKeySequence, QFont)
+                         QDoubleValidator, QStandardItemModel, QKeySequence, QFont, QAction)
 from PyQt6.QtWidgets import (
     QWidget,
     QApplication,
@@ -85,11 +85,9 @@ from PyQt6.QtWidgets import (
     QListWidgetItem,
     QTableWidgetItem,
     QTreeWidgetItem,
-    QDirModel,
     QCompleter,
     QMenu,
     QToolBar,
-    QAction,
     QMainWindow,
 )
 from .customeditor import SrcEditor

@@ -4,8 +4,8 @@
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtGui import QKeySequence, QIcon
-from PyQt6.QtWidgets import (QMainWindow, QApplication, QStyleFactory, QAction, QMenu, QToolBar, QWidget, QLabel,
+from PyQt6.QtGui import QKeySequence, QIcon, QAction
+from PyQt6.QtWidgets import (QMainWindow, QApplication, QStyleFactory, QMenu, QToolBar, QWidget, QLabel,
                              QCheckBox, QComboBox, QTabWidget, QDockWidget)
 
 # from res.img_rc import *

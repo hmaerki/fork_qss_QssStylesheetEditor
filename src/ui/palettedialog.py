@@ -4,7 +4,7 @@
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 from PyQt6.QtGui import QPalette, QFont, QColor
-from PyQt6.QtWidgets import (QDialog, QHBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, QPushButton, qApp,
+from PyQt6.QtWidgets import (QDialog, QHBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, QPushButton,
                              QColorDialog, QVBoxLayout, QTextEdit)
 
 

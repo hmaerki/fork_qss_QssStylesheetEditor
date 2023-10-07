@@ -109,6 +109,8 @@ class Language:
         except Exception as Argument:
             print(Argument)
 
+        # TODO: Remove the following return to enable translations
+        return
         systransdir = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
         try:
             if Language.systrans.load("qt_" + QLocale(lang).name(), systransdir):

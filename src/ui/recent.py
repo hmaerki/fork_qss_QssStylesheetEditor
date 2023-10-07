@@ -11,7 +11,7 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import os
-from PyQt6.QtWidgets import QAction
+from PyQt6.QtGui import QAction
 
 
 class Recent():

@@ -10,16 +10,18 @@
             "request": "launch",
             "program": "${workspaceFolder}/src/app.py",
             "console": "integratedTerminal",
-            "env": {"PYTHONPATH": "${workspaceFolder}/src"},
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src"
+            },
             "justMyCode": false
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
-,        {
-    "name": "Python: Current File",
-    "type": "python",
-    "request": "launch",
-    "program": "${file}",
-    "console": "integratedTerminal",
-    "justMyCode": true
-}
-]
+    ]
 }
