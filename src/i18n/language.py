@@ -98,8 +98,8 @@ class Language:
             lang = "en"
         try:
             if lang == "en":
-                # qApp.removeTranslator(self.qmfile)
-                # qApp.removeTranslator(self.trans_sys)
+                # QApplication.instance().removeTranslator(self.qmfile)
+                # QApplication.instance().removeTranslator(self.trans_sys)
                 pass
             else:
                 transdir = os.path.dirname(__file__)

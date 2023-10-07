@@ -6,7 +6,7 @@ import re
 import sys
 
 from PyQt6.QtWidgets import (QWidget, QLabel, QPushButton, QColorDialog, QFileDialog, QMessageBox, QFormLayout,
-                             QVBoxLayout, QHBoxLayout)
+                             QVBoxLayout, QHBoxLayout,QApplication)
 from PyQt6.QtGui import QIcon, QColor, qGray, QFont
 from PyQt6.QtCore import Qt, QSize, QTimer
 # import sip
@@ -64,7 +64,7 @@ class MainWin(MainWinBase):
     def setupActions(self):
         # theme  toolbarWidget
         self.actions["DisableQss"].toggled.connect(self.unuseQss)
-        self.themeCombo.currentTextChanged.connect(qApp.setStyle)
+        self.themeCombo.currentTextChanged.connect(QApplication.instance().setStyle)
 
         # menubar toolbar
         self.actions["new"].triggered.connect(self.new)
@@ -349,8 +349,8 @@ class MainWin(MainWinBase):
                 label = QLabel(varName)  # , contianerWidget)
                 btn = QPushButton(clrStr)  # , contianerWidget)
                 if sys.platform.startswith("win"):
-                    font1 = QFont("Arial", 10, QFont.Medium)
-                    font2 = QFont("sans-serif", 9, QFont.Medium)
+                    font1 = QFont("Arial", 10, QFont.Weight.Medium)
+                    font2 = QFont("sans-serif", 9, QFont.Weight.Medium)
                     label.setFont(font1)
                     btn.setFont(font2)
                 self.clrBtnDict[varName] = btn
@@ -582,7 +582,7 @@ class MainWin(MainWinBase):
                 elif ret in (QMessageBox.Discard, QMessageBox.No):
                     self.updateSpecialConfig()
                     self.config.save()
-                    qApp.exit()
+                    QApplication.instance().exit()
                 else:
                     e.ignore()
         else:

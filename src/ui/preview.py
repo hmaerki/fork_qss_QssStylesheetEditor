@@ -36,9 +36,9 @@ load preview widgets for view sytle effect
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-from PyQt6.QtCore import Qt, QSize, QRect, QDate, QTime, QDateTime
+from PyQt6.QtCore import Qt, QSize, QRect, QDate, QTime, QDateTime, QRegularExpression
 from PyQt6.QtGui import (QIcon, QPen, QBrush, QPixmap, QPainter, QLinearGradient, QRadialGradient, QConicalGradient,
-                         QDoubleValidator, QStandardItemModel, QKeySequence, QFont, QAction)
+                         QDoubleValidator, QStandardItemModel, QKeySequence, QFont, QAction, QRegularExpressionValidator, QFileSystemModel)
 from PyQt6.QtWidgets import (
     QWidget,
     QApplication,
@@ -169,7 +169,7 @@ class PreviewWidget(QTabWidget):
         text2.setPlaceholderText(self.tr("input"))
         lebel3 = QLabel(self.tr("<b>Pasword</b>:"))
         text3 = QLineEdit("******")
-        text3.setEchoMode(QLineEdit.Password)
+        text3.setEchoMode(QLineEdit.EchoMode.Password)
         label4 = QLabel(self.tr("link label:"))
         label5 = QLabel(self.tr("<a href='https://github.com/hustlei/'>github.com/hustlei</a>"))
         label5.setOpenExternalLinks(True)
@@ -194,9 +194,9 @@ class PreviewWidget(QTabWidget):
         validator1.setDecimals(2)
         text7.setValidator(validator1)
         text8 = QLineEdit()
-        validator2 = QRegExpValidator()
-        reg = QRegExp("[a-zA-Z0-9]+$")
-        validator2.setRegExp(reg)
+        validator2 = QRegularExpressionValidator()
+        reg = QRegularExpression("[a-zA-Z0-9]+$")
+        validator2.setRegularExpression(reg)
         text8.setValidator(validator2)
         layoutCol2.addRow(self.tr("Date Mask:"), text4)
         layoutCol2.addRow(self.tr("Mac Mask"), text5)
@@ -250,7 +250,7 @@ class PreviewWidget(QTabWidget):
         btn6 = QToolButton()
         # btn6.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         btn6.setText("ToolButton")
-        btn6.setPopupMode(QToolButton.MenuButtonPopup)
+        btn6.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
         m = QMenu()
         m.addAction("action1")
         m.addAction("action2")
@@ -288,7 +288,7 @@ class PreviewWidget(QTabWidget):
         ch6.setIcon(QIcon(":appres.img/Flag_blueHS.png"))
         ch7 = QCheckBox("TriState")
         ch7.setTristate(True)
-        ch7.setCheckState(Qt.PartiallyChecked)
+        ch7.setCheckState(Qt.CheckState.PartiallyChecked)
         ch8 = QCheckBox("Disable")
         ch8.setEnabled(False)
         layoutRow1.addWidget(ch1)
@@ -437,7 +437,7 @@ class PreviewWidget(QTabWidget):
         layout.addWidget(group2)
 
         slider = QSlider()
-        slider.setOrientation(Qt.Horizontal)
+        slider.setOrientation(Qt.Orientation.Horizontal)
         slider.setMaximum(100)
         progress = QProgressBar()
         slider.valueChanged.connect(progress.setValue)
@@ -448,12 +448,12 @@ class PreviewWidget(QTabWidget):
         scroll1.setMaximum(255)
         scroll2.setMaximum(255)
         scroll3.setMaximum(255)
-        scroll1.setOrientation(Qt.Horizontal)
-        scroll2.setOrientation(Qt.Horizontal)
-        scroll3.setOrientation(Qt.Horizontal)
+        scroll1.setOrientation(Qt.Orientation.Horizontal)
+        scroll2.setOrientation(Qt.Orientation.Horizontal)
+        scroll3.setOrientation(Qt.Orientation.Horizontal)
         c = QLabel(self.tr("Slide to change color"))  # , "拖动滑块改变颜色"))
         c.setAutoFillBackground(True)
-        c.setAlignment(Qt.AlignCenter)
+        c.setAlignment(Qt.AlignmentFlag.AlignCenter)
         # c.setStyleSheet("border:1px solid gray;")
         c.setStyleSheet("background:rgba(0,0,0,100);")
 
@@ -617,7 +617,7 @@ class PreviewWidget(QTabWidget):
         pic1 = QLabel()
         pic1.setPixmap(QPixmap(":appres.img/cup.jpg"))
         pic1text = QLabel("QLabel")
-        pic1text.setAlignment(Qt.AlignHCenter)
+        pic1text.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         pic1layout = QVBoxLayout()
         pic1layout.addWidget(pic1)
         pic1layout.addWidget(pic1text)
@@ -641,7 +641,7 @@ class PreviewWidget(QTabWidget):
                 p.end()
 
         pic2text = QLabel("QWidget Paint")
-        pic2text.setAlignment(Qt.AlignHCenter)
+        pic2text.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         pic2layout = QVBoxLayout()
         pic2layout.addWidget(Pic())
         pic2layout.addWidget(pic2text)
@@ -706,8 +706,8 @@ class PreviewWidget(QTabWidget):
         group4.setLayout(hbox)
         layout.addWidget(group4)
 
-        splitter1 = QSplitter(Qt.Horizontal)
-        splitter2 = QSplitter(Qt.Vertical)
+        splitter1 = QSplitter(Qt.Orientation.Horizontal)
+        splitter2 = QSplitter(Qt.Orientation.Vertical)
         splitter1.resize(420, 350)
         splitter2.resize(350, 350)
         splitter2.setStretchFactor(0, 1)
@@ -720,11 +720,15 @@ class PreviewWidget(QTabWidget):
         w2 = QWidget()
         d1 = QDockWidget("dock1", w1)
         d2 = QDockWidget("dock2", w1)
-        d1.setAllowedAreas(Qt.LeftDockWidgetArea)
-        d1.setFeatures(QDockWidget.AllDockWidgetFeatures | QDockWidget.DockWidgetVerticalTitleBar)
-        d2.setFeatures(QDockWidget.DockWidgetVerticalTitleBar)
+        d1.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea)
+        AllDockWidgetFeatures = (QDockWidget.DockWidgetFeature.DockWidgetClosable
+                                 | QDockWidget.DockWidgetFeature.DockWidgetMovable
+                                 | QDockWidget.DockWidgetFeature.DockWidgetFloatable
+                                 | QDockWidget.DockWidgetFeature.DockWidgetVerticalTitleBar)
+        d1.setFeatures(AllDockWidgetFeatures)
+        d2.setFeatures(QDockWidget.DockWidgetFeature.DockWidgetVerticalTitleBar)
         d3 = QDockWidget("dock3", w2)
-        d3.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.TopDockWidgetArea)
+        d3.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.TopDockWidgetArea)
         w1.resize(120, 120)
         splitter2.addWidget(w1)
         splitter2.addWidget(w2)
@@ -840,16 +844,16 @@ class PreviewWidget(QTabWidget):
         t2 = QTabWidget()
         t2.addTab(QWidget(), "tab1")
         t2.addTab(QWidget(), "tab2")
-        t2.setTabPosition(QTabWidget.South)
-        t2.setTabShape(QTabWidget.Triangular)
+        t2.setTabPosition(QTabWidget.TabPosition.South)
+        t2.setTabShape(QTabWidget.TabShape.Triangular)
         t3 = QTabWidget()
         t3.addTab(QWidget(), "tab1")
         t3.addTab(QWidget(), "tab2")
-        t3.setTabPosition(QTabWidget.West)
+        t3.setTabPosition(QTabWidget.TabPosition.West)
         t4 = QTabWidget()
         t4.addTab(QWidget(), "tab1")
         t4.addTab(QWidget(), "tab2")
-        t4.setTabPosition(QTabWidget.East)
+        t4.setTabPosition(QTabWidget.TabPosition.East)
         t3.setMinimumHeight(300)
         lay1.addWidget(t1)
         lay1.addWidget(t2)
@@ -878,7 +882,7 @@ class PreviewWidget(QTabWidget):
         list2.addItem(QListWidgetItem(QIcon(":appres.img/Flag_blueHS.png"), "blue"))
         list2.addItem(QListWidgetItem(QIcon(":appres.img/Flag_redHS.png"), "red"))
         list2.addItem(QListWidgetItem(QIcon(":appres.img/Flag_greenHS.png"), "green"))
-        list2.setViewMode(QListWidget.IconMode)
+        list2.setViewMode(QListWidget.ViewMode.IconMode)
         lay.addWidget(list1)
         lay.addWidget(list2)
 
@@ -891,11 +895,11 @@ class PreviewWidget(QTabWidget):
         for i in range(3):
             for j in range(3):
                 t1.setItem(i, j, QTableWidgetItem(str((i + 1) * (j + 1))))
-                t1.item(i, j).setTextAlignment(Qt.AlignCenter)
+                t1.item(i, j).setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         t1.setColumnWidth(0, 50)
         t1.setColumnWidth(1, 50)
         t1.setColumnWidth(2, 50)
-        t1.setEditTriggers(QTableWidget.AllEditTriggers)
+        t1.setEditTriggers(QTableWidget.EditTrigger.AllEditTriggers)
         t2 = QTableWidget()
         t2.setRowCount(3)
         t2.setColumnCount(3)
@@ -914,8 +918,8 @@ class PreviewWidget(QTabWidget):
         t2.setCellWidget(1, 1, c)
         t2.setItem(1, 2, QTableWidgetItem("11"))
         t2.resizeColumnsToContents()
-        t2.setEditTriggers(QTableWidget.EditKeyPressed | QTableWidget.SelectedClicked | QTableWidget.AnyKeyPressed
-                           | QTableWidget.DoubleClicked)
+        t2.setEditTriggers(QTableWidget.EditTrigger.EditKeyPressed | QTableWidget.EditTrigger.SelectedClicked | QTableWidget.EditTrigger.AnyKeyPressed
+                           | QTableWidget.EditTrigger.DoubleClicked)
 
         lay.addWidget(t1)
         lay.addWidget(t2)
@@ -934,17 +938,17 @@ class PreviewWidget(QTabWidget):
         node11 = QTreeWidgetItem()
         node11.setText(0, "child1")
         icon = QIcon(":appres.img/book_angle.png")
-        icon.addPixmap(QPixmap(":appres.img/book_open.png"), QIcon.Normal, QIcon.On)
+        icon.addPixmap(QPixmap(":appres.img/book_open.png"), QIcon.Mode.Normal, QIcon.State.On)
         node11.setIcon(0, icon)
         nodea = QTreeWidgetItem()
         nodea.setText(0, "red")
-        nodea.setBackground(1, QBrush(Qt.red))
+        nodea.setBackground(1, QBrush(Qt.GlobalColor.red))
         nodeb = QTreeWidgetItem()
         nodeb.setText(0, "gray")
-        nodeb.setBackground(1, QBrush(Qt.gray))
+        nodeb.setBackground(1, QBrush(Qt.GlobalColor.gray))
         nodec = QTreeWidgetItem()
         nodec.setText(0, "green")
-        nodec.setBackground(1, QBrush(Qt.green))
+        nodec.setBackground(1, QBrush(Qt.GlobalColor.green))
         node11.addChildren([nodea, nodeb, nodec])
         node12 = QTreeWidgetItem()
         node12.setText(0, "child2")
@@ -960,7 +964,7 @@ class PreviewWidget(QTabWidget):
         tree1.expand(tree1.model().index(0, 0))
         tree1.expandItem(node11)
         tree2 = QTreeView()
-        folder = QDirModel(self)
+        folder = QFileSystemModel(self)
         tree2.setModel(folder)
         lay.addWidget(tree1)
         lay.addWidget(tree2)
@@ -991,18 +995,18 @@ class PreviewWidget(QTabWidget):
         srcediter = SrcEditor()
         toolbar = QToolBar("source")
         actnew = createAct(self.tr("&New", "&New"),
-                           self.tr("new") + keys2str(QKeySequence.New),
-                           QKeySequence.New,
+                           self.tr("new") + keys2str(QKeySequence.StandardKey.New),
+                           QKeySequence.StandardKey.New,
                            ':appres.img/NewDocument.png',
                            slot=srcediter.clear)
         actopen = createAct(self.tr("&Open"),
-                            self.tr("Open") + keys2str(QKeySequence.Open),
-                            QKeySequence.Open,
+                            self.tr("Open") + keys2str(QKeySequence.StandardKey.Open),
+                            QKeySequence.StandardKey.Open,
                             ':appres.img/openHS.png',
                             slot=srcediter.open)
         actsave = createAct(self.tr("&Save"),
-                            self.tr("Save") + keys2str(QKeySequence.Save),
-                            QKeySequence.Save,
+                            self.tr("Save") + keys2str(QKeySequence.StandardKey.Save),
+                            QKeySequence.StandardKey.Save,
                             ':appres.img/save.png',
                             slot=srcediter.saveslot)
         actsaveas = createAct(self.tr("&Save as..."),
@@ -1018,23 +1022,23 @@ class PreviewWidget(QTabWidget):
 
         toolbar2 = QToolBar("edit")
         actundo = createAct(self.tr("&Undo"),
-                            self.tr("Undo") + keys2str(QKeySequence.Undo),
-                            QKeySequence.Undo,
+                            self.tr("Undo") + keys2str(QKeySequence.StandardKey.Undo),
+                            QKeySequence.StandardKey.Undo,
                             ':appres.img/undo.png',
                             slot=srcediter.undo)
         actredo = createAct(self.tr("&Redo"),
-                            self.tr("Redo") + keys2str(QKeySequence.Redo),
-                            QKeySequence.Redo,
+                            self.tr("Redo") + keys2str(QKeySequence.StandardKey.Redo),
+                            QKeySequence.StandardKey.Redo,
                             ':appres.img/redo.png',
                             slot=srcediter.redo)
         actfind = createAct(self.tr("&Find"),
-                            self.tr("Find") + keys2str(QKeySequence.Find),
-                            QKeySequence.Find,
+                            self.tr("Find") + keys2str(QKeySequence.StandardKey.Find),
+                            QKeySequence.StandardKey.Find,
                             ':appres.img/find.png',
                             slot=srcediter.find)
         actreplace = createAct(self.tr("&Replace"),
-                               self.tr("Replace") + keys2str(QKeySequence.Replace),
-                               QKeySequence.Replace,
+                               self.tr("Replace") + keys2str(QKeySequence.StandardKey.Replace),
+                               QKeySequence.StandardKey.Replace,
                                ':appres.img/replace.png',
                                slot=srcediter.replace)
         toolbar2.addAction(actredo)
@@ -1045,7 +1049,7 @@ class PreviewWidget(QTabWidget):
 
         toolbar3 = QToolBar("preview")
         actpreview = createAct(self.tr("Preview"), self.tr("Preview custom ui using qss."))
-        actpreview.setFont(QFont("SimHei, STHeiti, Arial", 12, QFont.Medium))
+        actpreview.setFont(QFont("SimHei, STHeiti, Arial", 12, QFont.Weight.Medium))
         toolbar3.addAction(actpreview)
         tab.addToolBar(toolbar3)
 

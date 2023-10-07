@@ -3,6 +3,7 @@
 """
 import os
 import sys
+import traceback
 from os import path
 from importlib import import_module, reload
 from CodeEditor import Editor
@@ -79,7 +80,7 @@ from PyQt6.QtCore import *
             if (hasattr(self.custom, "MainWindow")):
                 self.w = self.custom.MainWindow()
                 self.w.setParent(self)
-                self.w.setWindowFlags(Qt.Window)
+                self.w.setWindowFlags(Qt.WindowType.Window)
                 self.w.setMinimumSize(400, 280)
                 self.w.show()
             else:
@@ -89,7 +90,7 @@ from PyQt6.QtCore import *
             # del self.custom
             # del self.w
             QMessageBox.information(self, "Error",
-                                    self.tr("Preview error, please check the code.\n\n") + str(e), QMessageBox.Ok,
-                                    QMessageBox.Ok)
+                                    self.tr("Preview error, please check the code.\n\n") + str(e) + "\n\n" + traceback.format_exc(), QMessageBox.StandardButton.Ok,
+                                    QMessageBox.StandardButton.Ok)
         finally:
             os.chdir(dir1)

@@ -39,7 +39,7 @@ class App(QApplication):
         self.windows["main"].show()
         splash.finish(self.windows["main"])
         if not pytest:
-            sys.exit(self.exec_())
+            sys.exit(self.exec())
 
 
 def main():

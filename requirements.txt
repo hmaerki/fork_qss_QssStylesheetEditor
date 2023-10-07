@@ -6,4 +6,5 @@ tomlconfig>=1.2.1
 PyQt6
 PyQt6-sip
 PyQt6-QScintilla
-CodeEditor
+# CodeEditor
+CodeEditor @ git+https://github.com/hmaerki/fork_qss_CodeEditor.git

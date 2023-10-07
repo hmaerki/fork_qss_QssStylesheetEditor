@@ -66,13 +66,13 @@ class MainWinBase(QMainWindow):
             return "".join(("(", QKeySequence(standardkey).toString(), ")"))
 
         self.actions["new"] = createAct(self.tr("&New", "&New"),
-                                        self.tr("new") + keys2str(QKeySequence.New), QKeySequence.New,
+                                        self.tr("new") + keys2str(QKeySequence.StandardKey.New), QKeySequence.StandardKey.New,
                                         ':appres.img/NewDocument.png')
         self.actions["open"] = createAct(self.tr("&Open"),
-                                         self.tr("Open") + keys2str(QKeySequence.Open), QKeySequence.Open,
+                                         self.tr("Open") + keys2str(QKeySequence.StandardKey.Open), QKeySequence.StandardKey.Open,
                                          ':appres.img/openHS.png')
         self.actions["save"] = createAct(self.tr("&Save"),
-                                         self.tr("Save") + keys2str(QKeySequence.Save), QKeySequence.Save,
+                                         self.tr("Save") + keys2str(QKeySequence.StandardKey.Save), QKeySequence.StandardKey.Save,
                                          ':appres.img/save.png')
         self.actions["saveas"] = createAct(self.tr("&Save as..."), self.tr("Save as..."), None,
                                            ':appres.img/SaveAs.png')
@@ -80,25 +80,25 @@ class MainWinBase(QMainWindow):
                                            ':appres.img/export5.png')
         self.actions["exit"] = createAct(self.tr("&Exit"), self.tr("Exit"), "Ctrl+Q", ':appres.img/close.png')
         self.actions["undo"] = createAct(self.tr("&Undo"),
-                                         self.tr("Undo") + keys2str(QKeySequence.Undo), QKeySequence.Undo,
+                                         self.tr("Undo") + keys2str(QKeySequence.StandardKey.Undo), QKeySequence.StandardKey.Undo,
                                          ':appres.img/undo.png')
         self.actions["redo"] = createAct(self.tr("&Redo"),
-                                         self.tr("Redo") + keys2str(QKeySequence.Redo), QKeySequence.Redo,
+                                         self.tr("Redo") + keys2str(QKeySequence.StandardKey.Redo), QKeySequence.StandardKey.Redo,
                                          ':appres.img/redo.png')
         self.actions["cut"] = createAct(self.tr("&Cut"),
-                                        self.tr("Cut") + keys2str(QKeySequence.Cut), QKeySequence.Cut,
+                                        self.tr("Cut") + keys2str(QKeySequence.StandardKey.Cut), QKeySequence.StandardKey.Cut,
                                         ':appres.img/cut.png')
         self.actions["copy"] = createAct(self.tr("&Copy"),
-                                         self.tr("Copy") + keys2str(QKeySequence.Copy), QKeySequence.Copy,
+                                         self.tr("Copy") + keys2str(QKeySequence.StandardKey.Copy), QKeySequence.StandardKey.Copy,
                                          ':appres.img/copy.png')
         self.actions["paste"] = createAct(self.tr("&Paste"),
-                                          self.tr("Paste") + keys2str(QKeySequence.Paste), QKeySequence.Paste,
+                                          self.tr("Paste") + keys2str(QKeySequence.StandardKey.Paste), QKeySequence.StandardKey.Paste,
                                           ':appres.img/paste.png')
         self.actions["find"] = createAct(self.tr("&Find"),
-                                         self.tr("Find") + keys2str(QKeySequence.Find), QKeySequence.Find,
+                                         self.tr("Find") + keys2str(QKeySequence.StandardKey.Find), QKeySequence.StandardKey.Find,
                                          ':appres.img/find.png')
         self.actions["replace"] = createAct(self.tr("&Replace"),
-                                            self.tr("Replace") + keys2str(QKeySequence.Replace), QKeySequence.Replace,
+                                            self.tr("Replace") + keys2str(QKeySequence.StandardKey.Replace), QKeySequence.StandardKey.Replace,
                                             ':appres.img/replace.png')
         self.actions["comment"] = createAct(self.tr("Comment"),
                                             self.tr("Comment the selected code"), None, ':appres.img/commentcode.png')
@@ -140,7 +140,7 @@ class MainWinBase(QMainWindow):
                                                 self.tr("Check is there new version released for update."))
         self.actions["about"] = createAct(self.tr("&About"), self.tr("About"))
 
-        # self.exitAct.triggered.connect(qApp.exit)#等价于qApp.quit
+        # self.exitAct.triggered.connect(QApplication.instance().exit)#等价于qApp.quit
         self.actions["exit"].triggered.connect(self.close)
 
     def createMenubar(self):
@@ -212,10 +212,10 @@ class MainWinBase(QMainWindow):
         self.themeCombo.addItems(QStyleFactory.keys())
         self.themeCombo.setMinimumWidth(105)
         theme = QApplication.style().objectName()
-        self.themeCombo.setCurrentIndex(self.themeCombo.findText(theme, Qt.MatchFixedString))
+        self.themeCombo.setCurrentIndex(self.themeCombo.findText(theme, Qt.MatchFlag.MatchFixedString))
         # self.themeCombo.setEnabled(False)
-        # themeCombo.activated[str].connect(qApp.setStyle)
-        # themeCombo.currentTextChanged.connect(qApp.setStyle)
+        # themeCombo.activated[str].connect(QApplication.instance().setStyle)
+        # themeCombo.currentTextChanged.connect(QApplication.instance().setStyle)
         # checkbox.stateChanged.connect(self.themeCombo.setEnabled)
         checkbox.stateChanged.connect(self.actions["DisableQss"].setChecked)
         # checkbox.stateChanged.connect(lambda x:self.actions["DisableQss"].setChecked(checkbox.isChecked()))
@@ -276,25 +276,30 @@ class MainWinBase(QMainWindow):
         self.status["line"].setMinimumWidth(120)
         self.status["select"].setMinimumWidth(150)
         self.status["coding"].setMinimumWidth(80)
-        self.status["coding"].setAlignment(Qt.AlignCenter)
+        self.status["coding"].setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.status["lines"].setMinimumWidth(60)
-        self.status["lines"].setAlignment(Qt.AlignRight)
+        self.status["lines"].setAlignment(Qt.AlignmentFlag.AlignRight)
         self.statusbar.addPermanentWidget(self.status["line"])
         self.statusbar.addPermanentWidget(self.status["select"])
         self.statusbar.addPermanentWidget(self.status["coding"])
         self.statusbar.addPermanentWidget(self.status["lines"])
 
     def createDocks(self):
+        AllDockWidgetFeatures = (QDockWidget.DockWidgetFeature.DockWidgetClosable
+            | QDockWidget.DockWidgetFeature.DockWidgetMovable
+            | QDockWidget.DockWidgetFeature.DockWidgetFloatable
+            | QDockWidget.DockWidgetFeature.DockWidgetVerticalTitleBar)
+
         self.docks["color"] = QDockWidget(self.tr("Color Variables"))
         self.docks["preview"] = QDockWidget(self.tr("Preview"))
 
         self.docks["color"].setMinimumSize(QSize(80, 20))
-        self.docks["color"].setFeatures(QDockWidget.AllDockWidgetFeatures)
+        self.docks["color"].setFeatures(AllDockWidgetFeatures)
         self.docks["preview"].setMinimumSize(QSize(200, 200))
-        self.docks["preview"].setFeatures(QDockWidget.DockWidgetMovable | QDockWidget.DockWidgetFloatable)
+        self.docks["preview"].setFeatures(QDockWidget.DockWidgetFeature.DockWidgetMovable | QDockWidget.DockWidgetFeature.DockWidgetFloatable)
 
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.docks["color"])
-        self.addDockWidget(Qt.RightDockWidgetArea, self.docks["preview"])
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.docks["color"])
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.docks["preview"])
 
         class ColorPanelWidget(QWidget):
             def sizeHint(self):

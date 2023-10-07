@@ -27,7 +27,7 @@ class ConfDialog(QDialog):
         # self.setAttribute(Qt.WA_StyledBackground)
         # self.setAutoFillBackground(True)
         self._app = QApplication.instance()  # 获取app实例
-        self.setWindowFlags(Qt.Tool | Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.WindowStaysOnTopHint)
         self.win = mainwin
         self.leftList = QListWidget()
         self.rightStack = QStackedWidget()

@@ -5,13 +5,13 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 from PyQt6.QtGui import QPalette, QFont, QColor
 from PyQt6.QtWidgets import (QDialog, QHBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, QPushButton,
-                             QColorDialog, QVBoxLayout, QTextEdit)
+                             QColorDialog, QVBoxLayout, QTextEdit, QApplication)
 
 
 class PaletteDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.p = qApp.palette()
+        self.p = QApplication.instance().palette()
         self.oldclr = {}
         self.newclr = {}
         self.initUI()
@@ -20,27 +20,27 @@ class PaletteDialog(QDialog):
         self.setWindowTitle(self.tr("Palette Color Setting"))
         self.setMinimumSize(500, 500)
         self.tab = {
-            "Window": QPalette.Window,
-            "WindowText": QPalette.WindowText,
-            "Base": QPalette.Base,
-            "AlternateBase": QPalette.AlternateBase,
-            "Text": QPalette.Text,
-            "Button": QPalette.Button,
-            "ButtonText": QPalette.ButtonText,
-            "BrightText": QPalette.BrightText,
-            "ToolTipBase": QPalette.ToolTipBase,
-            "ToolTipText": QPalette.ToolTipText,
-            "PlaceholderText": QPalette.PlaceholderText,
-            "Light": QPalette.Light,
-            "Midlight": QPalette.Midlight,
-            "Dark": QPalette.Dark,
-            "Mid": QPalette.Mid,
-            "Shadow": QPalette.Shadow,
-            "Highlight": QPalette.Highlight,
-            "HighlightedText": QPalette.HighlightedText,
-            "Link": QPalette.Link,
-            "LinkVisited": QPalette.LinkVisited,
-            "NoRole": QPalette.NoRole
+            "Window": QPalette.ColorRole.Window,
+            "WindowText": QPalette.ColorRole.WindowText,
+            "Base": QPalette.ColorRole.Base,
+            "AlternateBase": QPalette.ColorRole.AlternateBase,
+            "Text": QPalette.ColorRole.Text,
+            "Button": QPalette.ColorRole.Button,
+            "ButtonText": QPalette.ColorRole.ButtonText,
+            "BrightText": QPalette.ColorRole.BrightText,
+            "ToolTipBase": QPalette.ColorRole.ToolTipBase,
+            "ToolTipText": QPalette.ColorRole.ToolTipText,
+            "PlaceholderText": QPalette.ColorRole.PlaceholderText,
+            "Light": QPalette.ColorRole.Light,
+            "Midlight": QPalette.ColorRole.Midlight,
+            "Dark": QPalette.ColorRole.Dark,
+            "Mid": QPalette.ColorRole.Mid,
+            "Shadow": QPalette.ColorRole.Shadow,
+            "Highlight": QPalette.ColorRole.Highlight,
+            "HighlightedText": QPalette.ColorRole.HighlightedText,
+            "Link": QPalette.ColorRole.Link,
+            "LinkVisited": QPalette.ColorRole.LinkVisited,
+            "NoRole": QPalette.ColorRole.NoRole
         }
         layout = QVBoxLayout()
         t = QTableWidget()
@@ -48,9 +48,9 @@ class PaletteDialog(QDialog):
         t.setColumnCount(5)
         t.setHorizontalHeaderLabels(["ColorRole", "Active", "Inactive", "Disabled", "reset"])
         t.verticalHeader().setVisible(False)
-        t.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        t.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         t.setDragEnabled(False)
-        t.setSelectionMode(QAbstractItemView.NoSelection)
+        t.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         t.horizontalHeader().setSectionsClickable(False)
         i = 0
         f = t.font()
@@ -100,9 +100,9 @@ class PaletteDialog(QDialog):
             t.setItem(i, 0, QTableWidgetItem(key))
             btn1 = QPushButton()
             clrRole = self.tab[t.item(i, 0).text()]
-            c1 = self.p.color(QPalette.Active, clrRole).name()
-            c2 = self.p.color(QPalette.Inactive, clrRole).name()
-            c3 = self.p.color(QPalette.Disabled, clrRole).name()
+            c1 = self.p.color(QPalette.ColorGroup.Active, clrRole).name()
+            c2 = self.p.color(QPalette.ColorGroup.Inactive, clrRole).name()
+            c3 = self.p.color(QPalette.ColorGroup.Disabled, clrRole).name()
             self.oldclr[t.item(i, 0).text()] = [c1, c2, c3]
             btn1.setStyleSheet("background:" + c1)
             t.setCellWidget(i, 1, btn1)
@@ -121,7 +121,7 @@ class PaletteDialog(QDialog):
             btn3.clicked.connect(changclr)
             btn4.clicked.connect(resetrow)
 
-        t.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        t.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         layout.addWidget(t)
         self.setLayout(layout)
 
@@ -171,7 +171,7 @@ class PaletteDialog(QDialog):
             if c3:
                 self.p.setColor(QPalette.Disabled, self.tab[k], QColor(c3))
                 self.oldclr[k][2] = c3
-        qApp.setPalette(self.p)
+        QApplication.instance().setPalette(self.p)
         self.close()
 
 

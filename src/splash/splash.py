@@ -80,7 +80,7 @@ class SplashScreen(QSplashScreen):
 #     QStackedWidget, QStatusBar, QStyle, QStyleFactory, QSystemTrayIcon, QTabBar, QTabWidget, QTableView,
 #     QTableWidget, QTableWidgetItem, QTableWidgetSelectionRange, QTextBrowser, QTextEdit, QTimeEdit, QToolBar,
 #     QToolBox, QToolButton, QToolTip, QTreeView, QTreeWidget, QTreeWidgetItem, QUndoCommand, QUndoGroup,
-#     QUndoStack, QUndoView, QVBoxLayout, QWhatsThis, QWidget, QWidgetAction, QWidgetItem, qApp)
+#     QUndoStack, QUndoView, QVBoxLayout, QWhatsThis, QWidget, QWidgetAction, QWidgetItem, QApplication.instance())
 
 # # QtSci 所有组件
 # from PyQt6 import Qsci
