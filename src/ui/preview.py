@@ -36,28 +36,75 @@ load preview widgets for view sytle effect
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-from PyQt6.QtCore import (QDate, QDateTime, QRect, QRegularExpression, QSize,
-                          Qt, QTime)
-from PyQt6.QtGui import (QAction, QBrush, QConicalGradient, QDoubleValidator,
-                         QFileSystemModel, QFont, QIcon, QKeySequence,
-                         QLinearGradient, QPainter, QPen, QPixmap,
-                         QRadialGradient, QRegularExpressionValidator,
-                         QStandardItemModel)
+from PyQt6.QtCore import QDate, QDateTime, QRect, QRegularExpression, QSize, Qt, QTime
+from PyQt6.QtGui import (
+    QAction,
+    QBrush,
+    QConicalGradient,
+    QDoubleValidator,
+    QFileSystemModel,
+    QFont,
+    QIcon,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPen,
+    QPixmap,
+    QRadialGradient,
+    QRegularExpressionValidator,
+    QStandardItemModel,
+)
 from PyQt6.QtWidgets import QDial  # QLCDNumber, QKeySequenceEdit,
-from PyQt6.QtWidgets import (QApplication, QCalendarWidget, QCheckBox,
-                             QColorDialog, QComboBox, QCommandLinkButton,
-                             QCompleter, QDateEdit, QDateTimeEdit, QDockWidget,
-                             QDoubleSpinBox, QFileDialog, QFontDialog,
-                             QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
-                             QInputDialog, QLabel, QLineEdit, QListWidget,
-                             QListWidgetItem, QMainWindow, QMdiArea, QMenu,
-                             QMessageBox, QProgressBar, QPushButton,
-                             QRadioButton, QScrollArea, QScrollBar, QSlider,
-                             QSpinBox, QSplitter, QStackedWidget, QTableWidget,
-                             QTableWidgetItem, QTabWidget, QTextEdit,
-                             QTimeEdit, QToolBar, QToolBox, QToolButton,
-                             QTreeView, QTreeWidget, QTreeWidgetItem,
-                             QVBoxLayout, QWidget)
+from PyQt6.QtWidgets import (
+    QApplication,
+    QCalendarWidget,
+    QCheckBox,
+    QColorDialog,
+    QComboBox,
+    QCommandLinkButton,
+    QCompleter,
+    QDateEdit,
+    QDateTimeEdit,
+    QDockWidget,
+    QDoubleSpinBox,
+    QFileDialog,
+    QFontDialog,
+    QFormLayout,
+    QGridLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QInputDialog,
+    QLabel,
+    QLineEdit,
+    QListWidget,
+    QListWidgetItem,
+    QMainWindow,
+    QMdiArea,
+    QMenu,
+    QMessageBox,
+    QProgressBar,
+    QPushButton,
+    QRadioButton,
+    QScrollArea,
+    QScrollBar,
+    QSlider,
+    QSpinBox,
+    QSplitter,
+    QStackedWidget,
+    QTableWidget,
+    QTableWidgetItem,
+    QTabWidget,
+    QTextEdit,
+    QTimeEdit,
+    QToolBar,
+    QToolBox,
+    QToolButton,
+    QTreeView,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 from .customeditor import SrcEditor
 
@@ -537,84 +584,84 @@ class PreviewWidget(QTabWidget):
                 p = QPainter()
                 p.begin(self)
 
-                pen = QPen(Qt.black, 2, Qt.SolidLine)
+                pen = QPen(Qt.GlobalColor.black, 2, Qt.PenStyle.SolidLine)
                 p.setPen(pen)
                 p.drawLine(20, 15, 150, 15)
-                pen.setStyle(Qt.DashLine)
+                pen.setStyle(Qt.PenStyle.DashLine)
                 p.setPen(pen)
                 p.drawLine(20, 35, 150, 35)
-                pen.setStyle(Qt.DotLine)
+                pen.setStyle(Qt.PenStyle.DotLine)
                 p.setPen(pen)
                 p.drawLine(20, 55, 150, 55)
-                pen.setStyle(Qt.DashDotLine)
+                pen.setStyle(Qt.PenStyle.DashDotLine)
                 p.setPen(pen)
                 p.drawLine(20, 75, 150, 75)
-                pen.setStyle(Qt.DashDotDotLine)
+                pen.setStyle(Qt.PenStyle.DashDotDotLine)
                 p.setPen(pen)
                 p.drawLine(20, 95, 150, 95)
-                pen.setStyle(Qt.CustomDashLine)
+                pen.setStyle(Qt.PenStyle.CustomDashLine)
                 pen.setDashPattern([1, 4, 5, 4])
                 p.setPen(pen)
                 p.drawLine(20, 115, 150, 115)
 
                 pen.setWidth(1)
-                pen.setStyle(Qt.SolidLine)
+                pen.setStyle(Qt.PenStyle.SolidLine)
                 p.setPen(pen)
-                brush = QBrush(Qt.SolidPattern)
+                brush = QBrush(Qt.BrushStyle.SolidPattern)
                 p.setBrush(brush)
                 p.drawRect(180, 10, 40, 30)
-                brush = QBrush(Qt.Dense5Pattern)
+                brush = QBrush(Qt.BrushStyle.Dense5Pattern)
                 p.setBrush(brush)
                 p.drawRect(240, 10, 40, 30)
-                brush = QBrush(Qt.Dense7Pattern)
+                brush = QBrush(Qt.BrushStyle.Dense7Pattern)
                 p.setBrush(brush)
                 p.drawRect(300, 10, 40, 30)
 
-                brush = QBrush(Qt.green, Qt.HorPattern)
+                brush = QBrush(Qt.GlobalColor.green, Qt.BrushStyle.HorPattern)
                 p.setBrush(brush)
                 p.drawRect(180, 50, 40, 30)
-                brush = QBrush(Qt.green, Qt.VerPattern)
+                brush = QBrush(Qt.GlobalColor.green, Qt.BrushStyle.VerPattern)
                 p.setBrush(brush)
                 p.drawRect(240, 50, 40, 30)
-                brush = QBrush(Qt.green, Qt.Dense6Pattern)
-                brush = QBrush(Qt.green, Qt.CrossPattern)
+                brush = QBrush(Qt.GlobalColor.green, Qt.BrushStyle.Dense6Pattern)
+                brush = QBrush(Qt.GlobalColor.green, Qt.BrushStyle.CrossPattern)
                 p.setBrush(brush)
                 p.drawRect(300, 50, 40, 30)
 
-                brush = QBrush(Qt.blue, Qt.BDiagPattern)
+                brush = QBrush(Qt.GlobalColor.blue, Qt.BrushStyle.BDiagPattern)
                 p.setBrush(brush)
                 p.drawRect(180, 90, 40, 30)
-                brush = QBrush(Qt.blue, Qt.FDiagPattern)
+                brush = QBrush(Qt.GlobalColor.blue, Qt.BrushStyle.FDiagPattern)
                 p.setBrush(brush)
                 p.drawRect(240, 90, 40, 30)
-                brush = QBrush(Qt.blue, Qt.DiagCrossPattern)
+                brush = QBrush(Qt.GlobalColor.blue, Qt.BrushStyle.DiagCrossPattern)
                 p.setBrush(brush)
                 p.drawRect(300, 90, 40, 30)
 
                 g = QLinearGradient(180, 130, 220, 160)
-                g.setColorAt(0, Qt.red)
-                g.setColorAt(1, Qt.blue)
+                g.setColorAt(0, Qt.GlobalColor.red)
+                g.setColorAt(1, Qt.GlobalColor.blue)
                 brush = QBrush(g)
                 p.setBrush(brush)
                 p.drawRect(180, 130, 40, 30)
                 g = QRadialGradient(260, 145, 20)
-                g.setColorAt(0, Qt.red)
-                g.setColorAt(0.5, Qt.yellow)
-                g.setColorAt(1, Qt.blue)
+                g.setColorAt(0, Qt.GlobalColor.red)
+                g.setColorAt(0.5, Qt.GlobalColor.yellow)
+                g.setColorAt(1, Qt.GlobalColor.blue)
                 p.setBrush(g)
                 p.drawRect(240, 130, 40, 30)
                 g = QConicalGradient(320, 145, 0)
-                g.setColorAt(0, Qt.red)
-                g.setColorAt(0.4, Qt.yellow)
-                g.setColorAt(0.8, Qt.blue)
-                g.setColorAt(1, Qt.red)
+                g.setColorAt(0, Qt.GlobalColor.red)
+                g.setColorAt(0.4, Qt.GlobalColor.yellow)
+                g.setColorAt(0.8, Qt.GlobalColor.blue)
+                g.setColorAt(1, Qt.GlobalColor.red)
                 p.setBrush(g)
                 p.drawRect(300, 130, 40, 30)
 
                 brush = QBrush()
                 brush.setTexture(QPixmap(":appres.img/texture.jpg"))
                 p.setBrush(brush)
-                pen.setColor(Qt.transparent)
+                pen.setColor(Qt.GlobalColor.transparent)
                 p.setPen(pen)
                 p.drawRect(15, 130, 135, 35)
 

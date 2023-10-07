@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import (QApplication, QColorDialog, QFileDialog,
                              QHBoxLayout, QLabel, QMessageBox, QPushButton,
                              QWidget)
 
+import custom_styles
 from config import ConfDialog, Config
 from qss_template.qsst import Qsst
 
@@ -68,7 +69,7 @@ class MainWin(MainWinBase):
     def setupActions(self):
         # theme  toolbarWidget
         self.actions["DisableQss"].toggled.connect(self.unuseQss)
-        self.themeCombo.currentTextChanged.connect(QApplication.instance().setStyle)
+        self.themeCombo.currentTextChanged.connect(custom_styles.set_style)
 
         # menubar toolbar
         self.actions["new"].triggered.connect(self.new)

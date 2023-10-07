@@ -2,13 +2,14 @@
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
-# from res.img_rc import *
 from CodeEditor import Editor
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QAction, QIcon, QKeySequence
 from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDockWidget,
-                             QLabel, QMainWindow, QMenu, QStyleFactory,
-                             QTabWidget, QToolBar, QWidget)
+                             QLabel, QMainWindow, QMenu, QTabWidget, QToolBar,
+                             QWidget)
+
+import custom_styles
 
 from .flow_layout import QFlowLayout
 from .preview import PreviewWidget
@@ -289,7 +290,7 @@ class MainWinBase(QMainWindow):
         # self.themeCombo = QComboBox()
         checkbox.setToolTip(self.tr("Using system style, disable qss."))
         self.themeCombo.setToolTip(self.tr("Select system style."))
-        self.themeCombo.addItems(QStyleFactory.keys())
+        self.themeCombo.addItems(custom_styles.style_names())
         self.themeCombo.setMinimumWidth(105)
         theme = QApplication.style().objectName()
         self.themeCombo.setCurrentIndex(
