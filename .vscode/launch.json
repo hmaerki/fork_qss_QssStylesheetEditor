@@ -22,6 +22,78 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
-        }
+        },
+        {
+            "name": "Black",
+            "type": "python",
+            "request": "launch",
+            "module": "black",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--target-version=py311",
+                "src"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYDEVD_DISABLE_FILE_VALIDATION": "1"
+            }
+        },
+        {
+            "name": "isort",
+            "type": "python",
+            "request": "launch",
+            "module": "isort",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "src"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYDEVD_DISABLE_FILE_VALIDATION": "1"
+            }
+        },
+        {
+            "name": "Ruff",
+            "type": "python",
+            "request": "launch",
+            "module": "ruff",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "args": [
+                "check",
+                "--fix",
+                "src"
+            ],
+            "justMyCode": true
+        },
+        {
+            "name": "Mypy",
+            "type": "python",
+            "request": "launch",
+            "module": "mypy",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            // "args": ["--verbose"],
+            "justMyCode": true
+        },
+        {
+            "name": "Pylint",
+            "type": "python",
+            "request": "launch",
+            "module": "pylint",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--rcfile=${workspaceFolder}/.pylintrc",
+                "--verbose",
+                "--recursive=yes",
+                "."
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "PYDEVD_DISABLE_FILE_VALIDATION": "1"
+            }
+        },
     ]
 }

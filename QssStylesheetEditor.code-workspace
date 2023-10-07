@@ -4,5 +4,55 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"mypy-type-checker.args": [
+			"--config-file=${workspaceFolder}/.mypy.ini"
+		],
+		"python.formatting.provider": "black",
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": false,
+		"python.linting.pylintArgs": [
+			"--rcfile=${workspaceFolder}/.pylintrc"
+		],
+		"python.linting.cwd": "${workspaceFolder}",
+		"terminal.integrated.defaultProfile.windows": "Git Bash",
+		"terminal.integrated.defaultProfile.linux": "",
+		// "python.testing.pytestArgs": [],
+		"python.testing.cwd": "${workspaceFolder}",
+		"python.testing.unittestEnabled": false,
+		"python.testing.pytestEnabled": true,
+		"ruff.organizeImports": true,
+		"ruff.fixAll": true,
+		"ruff.importStrategy": "fromEnvironment",
+		"[python]": {
+			"editor.defaultFormatter": "ms-python.black-formatter",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.fixAll": true,
+				"source.organizeImports": true
+			}
+		},
+		"isort.args": [
+			"--profile",
+			"black"
+		],
+		"files.exclude": {
+			"**/__pycache__/": true,
+			"**/.mypy_cache/": true,
+			"**/.pytest_cache/": true
+		},
+		"git.openRepositoryInParentFolders": "always",
+	},
+	"extensions": {
+		"recommendations": [
+			"mhutchie.git-graph",
+			"ms-python.vscode-pylance",
+			"ms-python.python",
+			"ms-python.pylint",
+			"ms-python.mypy-type-checker",
+			"ms-python.black-formatter",
+			"ms-python.isort",
+			"charliermarsh.ruff"
+		]
+	}
 }

@@ -1,0 +1,11 @@
+### Formatting, static code analysis, unit tests
+black
+mypy
+ruff
+pylint
+pytest==7.2.2
+
+### Installer
+pynsist==2.8
+wheel==0.41.2
+setuptools==68.2.2
