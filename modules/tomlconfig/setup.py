@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """setup for TomlConfig
 
 | author: lileilei  email: <hustlei@sina.cn>  @2019, wuhan
@@ -6,9 +5,9 @@
 from setuptools import setup
 
 with open("README.md", encoding="utf-8") as f:
-    long_desc=f.read()
+    long_desc = f.read()
 
-ver="1.2.1"
+ver = "1.2.1"
 
 setup(
     name="tomlconfig",
@@ -22,10 +21,10 @@ setup(
     project_urls={"Source Code": "https://github.com/hustlei/tomlconfig"},
     classifiers=[
         "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
-        "Programming Language :: Python :: 3", "Operating System :: OS Independent"
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
     ],
-
     version=ver,
     packages=["tomlconfig"],
-    install_requires=['toml'],
+    install_requires=["toml"],
 )

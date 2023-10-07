@@ -1,29 +1,28 @@
-# -*- coding: utf-8 -*-
 """CodeEditor
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import sys
-from PyQt6.QtCore import pyqtSignal
-from PyQt6.QtGui import (QFont, QFontMetrics, QKeyEvent, QColor, QDropEvent)
-from PyQt6 import Qsci
-from PyQt6.Qsci import QsciScintilla, QsciLexer
-from CodeEditor import lexers
-from CodeEditor.search import SearchDialog
-from CodeEditor.settings import EditorSettings
-from CodeEditor.lang import guessLang
-from CodeEditor.auxilary import binfiletypes, textfiletypes, getFileType
 
 import chardet
+from CodeEditor import lexers
+from CodeEditor.auxilary import binfiletypes, getFileType, textfiletypes
+from CodeEditor.lang import guessLang
+from CodeEditor.search import SearchDialog
+from CodeEditor.settings import EditorSettings
+from PyQt6 import Qsci
+from PyQt6.Qsci import QsciLexer, QsciScintilla
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtGui import QColor, QDropEvent, QFont, QFontMetrics, QKeyEvent
 
-font = QFont('Courier New', 11, 50)
+font = QFont("Courier New", 11, 50)
 if sys.platform.startswith("linux"):
     font = QFont("DejaVu Sans Mono", 11, 50)
 elif sys.platform.startswith("darwin"):
     font = QFont("Menlo", 11, 50)
 elif sys.platform.startswith("win"):
-    font.setFamily('Consolas')
+    font.setFamily("Consolas")
     # font.setFamilies(["Courier New", 'Consolas'])
 
 
@@ -83,7 +82,7 @@ class Editor(QsciScintilla):
         """
         for name, args in config.items():
             # Get the setter method ('setWhatEver')
-            setter = getattr(self, 'set' + name[0].upper() + name[1:])
+            setter = getattr(self, "set" + name[0].upper() + name[1:])
 
             # Handle setters that accept multiple arguments
             # (like marginLineNumbers)
@@ -93,22 +92,22 @@ class Editor(QsciScintilla):
                 setter(args)
 
         # Adjust margin if line numbers are on
-        if 'marginLineNumbers' in config:
-            if config['marginLineNumbers'] == (0, True):
-                font_metrics = QFontMetrics(config.get('marginsFont', font))  # self.marginsFont())
-                self.setMarginWidth(0, font_metrics.width('000') + 5)
+        if "marginLineNumbers" in config:
+            if config["marginLineNumbers"] == (0, True):
+                font_metrics = QFontMetrics(
+                    config.get("marginsFont", font)
+                )  # self.marginsFont())
+                self.setMarginWidth(0, font_metrics.width("000") + 5)
             else:
                 self.setMarginWidth(0, 0)
 
     def _setDefaultConfig(self):
-        """Set default configuration settings.
-        """
+        """Set default configuration settings."""
         self.configure(
             # Fonts
             utf8=True,  # 支持中文字符
-            marginsFont=QFont('Courier New', 11, 50),
+            marginsFont=QFont("Courier New", 11, 50),
             font=font,
-
             # Wrap mode: Wrap(None|Word|Character|Whitespace) 0,1,2,3
             wrapMode=self.WrapNone,  # self.setWrapMode(self.WrapWord)    # 自动换行
             # Text wrapping visual flag:
@@ -118,12 +117,10 @@ class Editor(QsciScintilla):
             # EolMode: Eol(Windows|Unix|Mac) SC_EOL_CRLF|SC_EOL_LF|SC_EOL_CR
             # eolMode='EolWindows',  # self.SC_EOL_LF,# 以\n换行
             eolVisibility=False,  # 是否显示换行符
-
             # Whitespace: Ws(Invisible|Visible|VisibleAfterIndent)
             whitespaceVisibility=self.WsInvisible,  # 是否显示空格，类似word空格处显示为点
             #  WhitespaceSize: (0|1|2) 点大小，0不显示，1小点，2大点
             whitespaceSize=2,
-
             # indent
             indentationsUseTabs=True,  # False表示用空格代替\t
             tabWidth=4,  # 空格数量，或者\t宽度
@@ -133,26 +130,21 @@ class Editor(QsciScintilla):
             backspaceUnindents=True,
             tabIndents=True,
             # True如果行前空格数少于tabWidth，补齐空格数,False如果在文字前tab同true，如果在行首tab，则直接增加tabwidth个空格
-
             # current line color
             caretWidth=2,  # 光标宽度，0表示不显示光标
             caretForegroundColor=QColor("#ff000000"),  # 光标颜色
             caretLineVisible=True,  # 是否高亮显示光标所在行
-            caretLineBackgroundColor=QColor('#FFF0F0F0'),  # 光标所在行背景颜色
-
+            caretLineBackgroundColor=QColor("#FFF0F0F0"),  # 光标所在行背景颜色
             # selection color
             # selectionBackgroundColor=QColor("#606060"),
             # selectionForegroundColor=QColor("#FFFFFF"),
-
             # edges
             edgeColumn=80,
             # Edge mode: Edge(None|Line|Background)
             edgeMode=self.EdgeLine,
-            edgeColor=QColor('#FF88FFFF'),
-
+            edgeColor=QColor("#FF88FFFF"),
             # Brace matching: (No|Strict|Sloppy)BraceMatch
             braceMatching=self.SloppyBraceMatch,
-
             # AutoComplete
             # Acs[None|All|Document|APIs]禁用自动补全提示功能|所有可用的资源|
             # 当前文档中出现的名称都自动补全提示|使用QsciAPIs类加入的名称都自动补全提示
@@ -160,20 +152,17 @@ class Editor(QsciScintilla):
             autoCompletionCaseSensitivity=False,  # 自动补全大小写敏感,不是很有用
             autoCompletionThreshold=1,  # 输入多少个字符才弹出补全提示
             autoCompletionReplaceWord=True,  # 是否用补全的字符串替代光标右边的字符串
-
             # margins switch
             marginWidthes=((1, 0), (3, 0), (4, 0)),  # 设置边栏宽度，设置宽度为0表示不显示
             # marginWidth=(2, 12),  # 设置边栏宽度
-
             # margin（line number）
             marginLineNumbers=(0, True),  # 设置第0个边栏为行号边栏，True表示显示
-            marginsForegroundColor=QColor('#ff000000'),
-            marginsBackgroundColor=QColor('lightgray'),  # 行号边栏背景颜色 打开新文件后就不起作用了？
-
+            marginsForegroundColor=QColor("#ff000000"),
+            marginsBackgroundColor=QColor("lightgray"),  # 行号边栏背景颜色 打开新文件后就不起作用了？
             # margin (folding)
             # Folding: (No|Plain|Circled|Boxed|CircledTree|BoxedTree)FoldStyle
             folding=self.BoxedTreeFoldStyle,  # 代码可折叠
-            foldMarginColors=(QColor('#aad'), QColor('#bbe')),
+            foldMarginColors=(QColor("#aad"), QColor("#bbe")),
             # marginType=(2,QsciScintilla.SC_MARGIN_SYMBOL),#页边类型
             # marginMarkerMask=(2,QsciScintilla.SC_MASK_FOLDERS),#页边掩码
             # marginSensitivity=(2,True),#注册通知事件，当用户点击边栏时，scintilla会通知我们
@@ -183,31 +172,32 @@ class Editor(QsciScintilla):
     # Note: These follow the getter/setter pattern of other QsciScintilla settings,
     # to allow `configure` to manipulate them.
     def language(self):
-        """Getter for language.
-        """
+        """Getter for language."""
         if isinstance(self.lexer, QsciLexer):
             return self.lexerName  # self.lexers.language()
-        return 'None'
+        return "None"
 
     def setLanguage(self, language):
         """Set syntax highlighting to the given language.
         If ``language`` is ``None``, ``'None'`` or empty, then syntax highlighting is disabled.
         """
-        if not language or language == 'None':
+        if not language or language == "None":
             language = "Text"
         self.lexerName = language
 
         custom = False
         for lexer in dir(lexers):
-            if lexer[0:9] == 'QsciLexer' and lexer[9:] == language:
+            if lexer[0:9] == "QsciLexer" and lexer[9:] == language:
                 custom = True
                 break
 
         try:
             if custom:
-                self.lexer = getattr(lexers, 'QsciLexer' + language)(self)
+                self.lexer = getattr(lexers, "QsciLexer" + language)(self)
             else:
-                self.lexer = getattr(Qsci, 'QsciLexer' + language)(self)  # lexers = QsciLexerCSS()
+                self.lexer = getattr(Qsci, "QsciLexer" + language)(
+                    self
+                )  # lexers = QsciLexerCSS()
         except AttributeError:
             self.lexer = None
             raise AttributeError
@@ -259,6 +249,7 @@ class Editor(QsciScintilla):
 
     def setFontFamily(self, fontFamily):
         from auxilary import fontFamilies
+
         if fontFamily in fontFamilies:
             fontFamily = fontFamilies[fontFamily]
         if self.lexer:
@@ -285,13 +276,11 @@ class Editor(QsciScintilla):
             self.setMarginWidth(i, w)
 
     def caretLineVisible(self):
-        """Return the ``caretLineVisible`` attribute (True or False).
-        """
+        """Return the ``caretLineVisible`` attribute (True or False)."""
         return self.SendScintilla(self.SCI_GETCARETLINEVISIBLE)
 
     def caretLineBackgroundColor(self):
-        """Return the ``caretLineBackgroundColor`` as a QColor.
-        """
+        """Return the ``caretLineBackgroundColor`` as a QColor."""
         # TODO: Support alpha?
         bgr_int = self.SendScintilla(self.SCI_GETCARETLINEBACK)
         r, g, b = self.__bgr_int2rgb(bgr_int)
@@ -312,7 +301,7 @@ class Editor(QsciScintilla):
     ###
     def clear(self):
         """Clear the contents of the editor."""
-        self.setText('')
+        self.setText("")
         self.setModified(False)
 
     def load(self, filename):
@@ -320,7 +309,7 @@ class Editor(QsciScintilla):
         self.coding = "utf-8"
         self.setText("")
         filetype = getFileType(filename)
-        with open(filename, 'rb') as f:
+        with open(filename, "rb") as f:
             strbytes = f.read()
 
         if filetype in binfiletypes:
@@ -360,7 +349,7 @@ class Editor(QsciScintilla):
 
     def save(self, filename):
         """Save the editor contents to the given filename."""
-        with open(filename, 'w', newline='') as outfile:
+        with open(filename, "w", newline="") as outfile:
             # 不指定newline，则换行符为各系统默认的换行符（\n, \r, or \r\n, ）
             # newline=''表示不转换
             outfile.write(self.text())

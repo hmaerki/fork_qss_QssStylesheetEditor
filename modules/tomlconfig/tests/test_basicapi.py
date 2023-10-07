@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 """Test basic api of tomlsection
 
 Copyright (c) 2019 lileilei. <hustlei@sina.cn>
 """
 
 from pytest import raises
-from tomlconfig import TomlSection, Error
+from tomlconfig import Error, TomlSection
 
 
 def test_child_basicapi(section):
@@ -35,13 +34,13 @@ def test_child_basicapi(section):
     assert rm1 == {}
     assert section.rmChild("sec3") is None
     # test for getChild
-    assert section.getChild('sec1.sec11.v111') == 111
-    assert 'v111' in section.getChild('sec1.sec11')
-    assert section.getChild('sec1').hasChild('sec11')
-    assert section.getChild('sec1').hasChild('sec11.v111')
-    assert section.getChild('') is None
-    assert section.getChild('sec4') == ""
-    assert section.getChild('sec5', False) is None
+    assert section.getChild("sec1.sec11.v111") == 111
+    assert "v111" in section.getChild("sec1.sec11")
+    assert section.getChild("sec1").hasChild("sec11")
+    assert section.getChild("sec1").hasChild("sec11.v111")
+    assert section.getChild("") is None
+    assert section.getChild("sec4") == ""
+    assert section.getChild("sec5", False) is None
     # test for setChild
     section.setChild("sec1.sec11.v111", 1112)
     assert section.getChild("sec1.sec11.v111") == 1112

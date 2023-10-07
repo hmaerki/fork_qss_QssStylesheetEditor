@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """A easy-to-use toml config parser
 
 | author: lileilei
@@ -6,4 +5,3 @@
 """
 
 __version__ = "1.2.0"
-

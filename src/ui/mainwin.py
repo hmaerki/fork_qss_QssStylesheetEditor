@@ -1,5 +1,4 @@
-﻿# -*- coding: utf-8 -*-
-"""Copyright (c) 2019 lileilei <hustlei@sina.cn>
+﻿"""Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 import os
 import re
@@ -12,7 +11,7 @@ from PyQt6.QtWidgets import (QApplication, QColorDialog, QFileDialog,
                              QWidget)
 
 from config import ConfDialog, Config
-from qss_template import Qsst
+from qss_template.qsst import Qsst
 
 from .mainwinbase import MainWinBase
 from .palettedialog import PaletteDialog

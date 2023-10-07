@@ -69,8 +69,7 @@ class SrcEditor(Editor):
         with open(self.cachefile, "w", newline="") as file:
             # 不指定newline，则换行符为各系统默认的换行符（\n, \r, or \r\n, ）
             # newline=''表示不转换
-            pretext = """# -*- coding: utf-8 -*-
-\"""Qss preview for Custom QtWidgets\"""
+            pretext = """\"""Qss preview for Custom QtWidgets\"""
 
 import sys
 import os

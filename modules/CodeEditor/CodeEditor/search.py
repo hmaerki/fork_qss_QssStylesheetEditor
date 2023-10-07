@@ -1,10 +1,20 @@
-# -*- coding: utf-8 -*-
 """Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 from PyQt6.Qsci import QsciScintilla
-from PyQt6.QtWidgets import (QMainWindow, QWidget, QHBoxLayout, QGridLayout, QVBoxLayout, QCheckBox, QPushButton,
-                             QLabel, QLineEdit, QSpacerItem, QSizePolicy)
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
+    QCheckBox,
+    QGridLayout,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QMainWindow,
+    QPushButton,
+    QSizePolicy,
+    QSpacerItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 
 class SearchDialog(QMainWindow):
@@ -126,14 +136,18 @@ class SearchDialog(QMainWindow):
         findNextBtn = QPushButton(self.tr("Find Next"))  # ,"查找下一个"))
         findNextBtn.setShortcut(Qt.Key_Return)
         self.__findPreBtn = QPushButton(self.tr("Find previous"))  # ,"查找上一个"))
-        self.__findPreBtn.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.__findPreBtn.setSizePolicy(
+            QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        )
         self.__findPreBtn.resize(self.__findPreBtn.sizeHint())
         self.__countBtn = QPushButton(self.tr("Count"))  # ,"计数"))
         cancelBtn = QPushButton(self.tr("Cancel"))  # ,"取消"))
         self.__replaceBtn = QPushButton(self.tr("Replace"))  # ,"替换"))
         self.__replaceAllBtn = QPushButton(self.tr("Replace All"))  # ,"替换全部"))
         stylesheet = "QPushButton { padding: 5 15}"
-        self.__findPreBtn.setStyleSheet(stylesheet)  # setContentsMargins(QMargins(50,20,50,20))#setMinimumWidth(120)
+        self.__findPreBtn.setStyleSheet(
+            stylesheet
+        )  # setContentsMargins(QMargins(50,20,50,20))#setMinimumWidth(120)
         findNextBtn.setStyleSheet(stylesheet)
         self.__countBtn.setStyleSheet(stylesheet)
         self.__replaceBtn.setStyleSheet(stylesheet)
@@ -152,11 +166,22 @@ class SearchDialog(QMainWindow):
             self.__replaceBtn.setVisible(False)
             self.__replaceAllBtn.setVisible(False)
 
-        findNextBtn.clicked.connect(lambda: (self.setReverse(False), self.findreplace()))
-        self.__findPreBtn.clicked.connect(lambda: (self.setReverse(True), self.findreplace()))
+        findNextBtn.clicked.connect(
+            lambda: (self.setReverse(False), self.findreplace())
+        )
+        self.__findPreBtn.clicked.connect(
+            lambda: (self.setReverse(True), self.findreplace())
+        )
         self.__replaceBtn.clicked.connect(lambda: self.findreplace(True))
-        self.__countBtn.clicked.connect(lambda: (self.statusbar.showMessage(
-            self.tr("Count:{} times matched.").format(self.__editor.count(self.searchText, case=self.__caseFlag)))))
+        self.__countBtn.clicked.connect(
+            lambda: (
+                self.statusbar.showMessage(
+                    self.tr("Count:{} times matched.").format(
+                        self.__editor.count(self.searchText, case=self.__caseFlag)
+                    )
+                )
+            )
+        )
 
         cancelBtn.clicked.connect(self.close)
         cancelBtn.setShortcut(Qt.Key_Escape)
@@ -178,13 +203,23 @@ class SearchDialog(QMainWindow):
         self.replaceText = self.__replaceTextBox.text()
         self.__startNewSearch = True
         if self.__escape:
-            self.searchText = eval(repr(self.searchText).replace('\\\\', '\\'))
-            self.replaceText = eval(repr(self.replaceText).replace('\\\\', '\\'))
+            self.searchText = eval(repr(self.searchText).replace("\\\\", "\\"))
+            self.replaceText = eval(repr(self.replaceText).replace("\\\\", "\\"))
 
     def findreplace(self, replace=False):
         if self.__startNewSearch:
-            state = (self.__reFlag, self.__caseFlag, self.__wordFlag, self.__wrapFlag, self.__forwardFlag, self.__line,
-                     self.__index, self.__show, self.__posixFlag, self.__cxx11Flag)
+            state = (
+                self.__reFlag,
+                self.__caseFlag,
+                self.__wordFlag,
+                self.__wrapFlag,
+                self.__forwardFlag,
+                self.__line,
+                self.__index,
+                self.__show,
+                self.__posixFlag,
+                self.__cxx11Flag,
+            )
             self.__finded = self.__editor.findFirst(self.searchText, *state)
             if self.__finded:
                 self.__startNewSearch = False
@@ -206,8 +241,9 @@ class SearchDialog(QMainWindow):
 
 
 if __name__ == "__main__":
-    from PyQt6.QtWidgets import QApplication
     import sys
+
+    from PyQt6.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
     win = QWidget()

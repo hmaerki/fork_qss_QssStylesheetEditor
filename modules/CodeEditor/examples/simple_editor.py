@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Simple editor sample using CodeEditor package.
 
 Copyright (c) 2019 lileilei. <hustlei@sina.cn>
@@ -7,8 +6,16 @@ Copyright (c) 2019 lileilei. <hustlei@sina.cn>
 import sys
 
 sys.path.append("..")
-from PyQt6.QtWidgets import QApplication, QWidget, QSplitter, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog
 from CodeEditor import Editor
+from PyQt6.QtWidgets import (
+    QApplication,
+    QFileDialog,
+    QHBoxLayout,
+    QPushButton,
+    QSplitter,
+    QVBoxLayout,
+    QWidget,
+)
 
 app = QApplication(sys.argv)
 win = QWidget()
@@ -49,10 +56,14 @@ splitter.addWidget(edt)
 splitter.addWidget(settingDialog)
 # toolbar
 butopen = QPushButton("open")
+
+
 def openfile():
     dialog, _ = QFileDialog.getOpenFileName()
     if dialog:
         edt.load(dialog)
+
+
 butopen.clicked.connect(openfile)
 butfind = QPushButton("find")
 butfind.clicked.connect(edt.find)

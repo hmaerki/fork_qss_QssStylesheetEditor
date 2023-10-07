@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test for TomlConfig class
 
 Copyright (c) 2019 lileilei. <hustlei@sina.cn>
@@ -8,8 +7,7 @@ from tomlconfig import TomlConfig
 
 
 def test_tomlconfig(configfile):
-    """Test for TomlConfig class
-    """
+    """Test for TomlConfig class"""
     # readfile
     config = TomlConfig()
     config.read(configfile)
@@ -22,7 +20,7 @@ def test_tomlconfig(configfile):
     assert "sec1" not in config
 
     # update dict to tomlconfig
-    tomldict = {'sec3': {'v31': 31}}
+    tomldict = {"sec3": {"v31": 31}}
     config.update(tomldict)
     assert "sec" in config
     assert config["sec3.v31"] == 31
@@ -40,5 +38,6 @@ def test_tomlconfig(configfile):
 
     # test for version
     import tomlconfig
+
     ver = tomlconfig.__version__
     assert int(ver[0]) >= 1

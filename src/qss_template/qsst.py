@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """var operate for qss file
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>

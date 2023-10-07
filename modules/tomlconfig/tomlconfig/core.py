@@ -1,16 +1,18 @@
-# -*- coding: utf-8 -*-
 """Basic for load save and add item for toml config file
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import os
+
 import toml
+
 from .base import TomlSection
 
 
 class TomlConfig(TomlSection):
     """Paser for toml config file"""
+
     def __init__(self, tomlFile=None):
         super().__init__()
         self.configFile = tomlFile
@@ -45,17 +47,17 @@ class TomlConfig(TomlSection):
         if not os.path.exists(tomlFile):
             print('Toml config file: "' + os.path.basename(tomlFile) + '" not found.')
             return False
-        with open(tomlFile, mode='rb') as f:
+        with open(tomlFile, mode="rb") as f:
             content = f.read()
         self.configFile = tomlFile
-        if content.startswith(b'\xef\xbb\xbf'):  # 去掉 utf8 bom 头 #TOML要求使用UTF-8 编码
+        if content.startswith(b"\xef\xbb\xbf"):  # 去掉 utf8 bom 头 #TOML要求使用UTF-8 编码
             content = content[3:]
         self.clear()
-        tomldict = toml.loads(content.decode('utf8'))  # _dict=TomlSection))
+        tomldict = toml.loads(content.decode("utf8"))  # _dict=TomlSection))
         self.update(TomlSection(tomldict))  # ,
         return True
 
-    def save(self, tomlFile=None, coding='utf-8'):
+    def save(self, tomlFile=None, coding="utf-8"):
         """Save toml config to toml file.
 
         :param tomlFile: file to be saved. if toml is None, default save to self.configFile
@@ -65,7 +67,7 @@ class TomlConfig(TomlSection):
         if tomlFile is None:
             tomlFile = self.configFile
         if tomlFile is not None:
-            with open(tomlFile, 'w', newline='', encoding=coding) as outfile:
+            with open(tomlFile, "w", newline="", encoding=coding) as outfile:
                 # 不指定newline，则换行符自动转换为各系统默认的换行符(\n, \r, or \r\n,), newline=''表示不转换
                 s = toml.dumps(self)
                 outfile.write(s)

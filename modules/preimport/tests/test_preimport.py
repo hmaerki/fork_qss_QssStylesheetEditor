@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """test scripts for preimport module by pytest
 
 :author: lileilei
@@ -6,14 +5,17 @@
 """
 
 import sys
+
 sys.path.append(".")
 import preimport as package
 from preimport import preimport
 
-MODULE_NAMES = ('six', 'pluggy')
+MODULE_NAMES = ("six", "pluggy")
+
 
 def test_vesion():
     print("\n" + package.__version__)
+
 
 def test_preimport(capsys):
     preimport(MODULE_NAMES)
@@ -23,11 +25,11 @@ def test_preimport(capsys):
 
 def test_already_imported(capsys):
     print("")
-    preimport('os')
+    preimport("os")
     out, err = capsys.readouterr()
     print(out)
-    assert 'already' in out
-    assert 'os' in sys.modules
+    assert "already" in out
+    assert "os" in sys.modules
 
 
 def test_import_failed(capsys):

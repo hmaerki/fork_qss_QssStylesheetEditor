@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """get tranlations and set language for the app.
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>

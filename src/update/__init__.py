@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """functions for version and update check
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>

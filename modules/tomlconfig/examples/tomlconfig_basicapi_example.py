@@ -1,13 +1,16 @@
 #!usr/bin/python
-# -*- coding: utf-8 -*-
 """example for TomlConfig
 
 | author: lileilei  email: <hustlei@sina.cn>  @2019, wuhan
 """
 
-import sys, os
+import os
+import sys
+
 currentdir = os.path.dirname(__file__)
-sys.path.append(currentdir + "/..")  # test environments, if TomlConfig is installed, this not needed
+sys.path.append(
+    currentdir + "/.."
+)  # test environments, if TomlConfig is installed, this not needed
 from tomlconfig import TomlConfig
 
 config = TomlConfig()

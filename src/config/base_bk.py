@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Toml config file parser
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Class for palette color setting
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>

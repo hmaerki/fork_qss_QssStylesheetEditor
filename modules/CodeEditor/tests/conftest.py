@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 """Fixture for pytest"""
 
 
-#from CodeEditor import Editor
+# from CodeEditor import Editor
 
 # @fixture(scope="function")
 # def editor():

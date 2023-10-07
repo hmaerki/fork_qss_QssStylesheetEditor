@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """load add save recent opened list
 
 Example::

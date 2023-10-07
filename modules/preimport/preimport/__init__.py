@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """function for preimport python module
 
 | author: lileilei

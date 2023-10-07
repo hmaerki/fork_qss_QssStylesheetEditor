@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """ Language lexers and their file extensions
 
 (Name, extensions) tuples, where <Name> must match QsciLexer<Name>
@@ -6,152 +5,182 @@
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
-from PyQt6.QtCore import Qt, QVariant, QCoreApplication, pyqtSignal
-from PyQt6.QtGui import QColor, QFont
-from PyQt6.QtWidgets import (QWidget, QGroupBox, QVBoxLayout, QPushButton, QLabel, QHBoxLayout, QSpinBox, QCheckBox,
-                             QComboBox, QColorDialog, QFontComboBox, QScrollArea)
 from PyQt6.Qsci import QsciScintilla
+from PyQt6.QtCore import QCoreApplication, Qt, QVariant, pyqtSignal
+from PyQt6.QtGui import QColor, QFont
+from PyQt6.QtWidgets import (
+    QCheckBox,
+    QColorDialog,
+    QComboBox,
+    QFontComboBox,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QScrollArea,
+    QSpinBox,
+    QVBoxLayout,
+    QWidget,
+)
+
 from .setting_enums import SettingEnums
 
 
-class EditorSettings():
+class EditorSettings:
     """A dialog window for configuring a QsciScintilla editor."""
+
     settingItems = {
         # Boolean settings
-        'tabIndents': {
-            'type': 'bool',
-            'label': QCoreApplication.translate('EditorSettings', 'Tab indents'),
-            'help': QCoreApplication.translate('EditorSettings', 'Use the tab key to indent text'),
+        "tabIndents": {
+            "type": "bool",
+            "label": QCoreApplication.translate("EditorSettings", "Tab indents"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "Use the tab key to indent text"
+            ),
         },
-        'backspaceUnindents': {
-            'type':
-            'bool',
-            'label':
-            QCoreApplication.translate('EditorSettings', 'Backspace unindents'),
-            'help':
-            QCoreApplication.translate('EditorSettings',
-                                       'Backspace will unindent a line instead of just deleting a character'),
+        "backspaceUnindents": {
+            "type": "bool",
+            "label": QCoreApplication.translate(
+                "EditorSettings", "Backspace unindents"
+            ),
+            "help": QCoreApplication.translate(
+                "EditorSettings",
+                "Backspace will unindent a line instead of just deleting a character",
+            ),
         },
-        'autoIndent': {
-            'type': 'bool',
-            'label': QCoreApplication.translate('EditorSettings', 'Auto-indent'),
-            'help': QCoreApplication.translate('EditorSettings',
-                                               'Automatically indent text to match the preceding line'),
+        "autoIndent": {
+            "type": "bool",
+            "label": QCoreApplication.translate("EditorSettings", "Auto-indent"),
+            "help": QCoreApplication.translate(
+                "EditorSettings",
+                "Automatically indent text to match the preceding line",
+            ),
         },
-        'indentationGuides': {
-            'type':
-            'bool',
-            'label':
-            QCoreApplication.translate('EditorSettings', 'Indentation guides'),
-            'help':
-            QCoreApplication.translate('EditorSettings',
-                                       'Display visible guidelines to help keep indentation consistent'),
+        "indentationGuides": {
+            "type": "bool",
+            "label": QCoreApplication.translate("EditorSettings", "Indentation guides"),
+            "help": QCoreApplication.translate(
+                "EditorSettings",
+                "Display visible guidelines to help keep indentation consistent",
+            ),
         },
-        'indentationsUseTabs': {
-            'type':
-            'bool',
-            'label':
-            QCoreApplication.translate('EditorSettings', 'Use tab character'),
-            'help':
-            QCoreApplication.translate('EditorSettings', 'Tab key inserts an actual tab character instead of spaces'),
+        "indentationsUseTabs": {
+            "type": "bool",
+            "label": QCoreApplication.translate("EditorSettings", "Use tab character"),
+            "help": QCoreApplication.translate(
+                "EditorSettings",
+                "Tab key inserts an actual tab character instead of spaces",
+            ),
         },
-        'eolVisibility': {
-            'type':
-            'bool',
-            'label':
-            QCoreApplication.translate('EditorSettings', 'Show CR/LF'),
-            'help':
-            QCoreApplication.translate('EditorSettings', 'Display a visible icon for carriage return and line feeds'),
+        "eolVisibility": {
+            "type": "bool",
+            "label": QCoreApplication.translate("EditorSettings", "Show CR/LF"),
+            "help": QCoreApplication.translate(
+                "EditorSettings",
+                "Display a visible icon for carriage return and line feeds",
+            ),
         },
-
         # Color settings
-        'color': {
-            'type': 'color',
-            'label': QCoreApplication.translate('EditorSettings', 'Text color'),
-            'help': QCoreApplication.translate('EditorSettings', 'Default text color'),
+        "color": {
+            "type": "color",
+            "label": QCoreApplication.translate("EditorSettings", "Text color"),
+            "help": QCoreApplication.translate("EditorSettings", "Default text color"),
         },
-        'paper': {
-            'type': 'color',
-            'label': QCoreApplication.translate('EditorSettings', 'Paper color'),
-            'help': QCoreApplication.translate('EditorSettings', 'Default background color'),
+        "paper": {
+            "type": "color",
+            "label": QCoreApplication.translate("EditorSettings", "Paper color"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "Default background color"
+            ),
         },
-        'fontFamily': {
-            'type': 'fontfamily',
-            'label': QCoreApplication.translate('EditorSettings', 'Font Family'),
-            'help': QCoreApplication.translate('EditorSettings', 'Default font family'),
+        "fontFamily": {
+            "type": "fontfamily",
+            "label": QCoreApplication.translate("EditorSettings", "Font Family"),
+            "help": QCoreApplication.translate("EditorSettings", "Default font family"),
         },
-        'fontSize': {
-            'type': 'number',
-            'label': QCoreApplication.translate('EditorSettings', 'Font Size'),
-            'help': QCoreApplication.translate('EditorSettings', 'Default font size'),
+        "fontSize": {
+            "type": "number",
+            "label": QCoreApplication.translate("EditorSettings", "Font Size"),
+            "help": QCoreApplication.translate("EditorSettings", "Default font size"),
         },
         # Numeric settings
-        'edgeColumn': {
-            'type': 'number',
-            'label': QCoreApplication.translate('EditorSettings', 'Text width'),
-            'help': QCoreApplication.translate('EditorSettings',
-                                               'Number of characters per line before wrapping occurs'),
+        "edgeColumn": {
+            "type": "number",
+            "label": QCoreApplication.translate("EditorSettings", "Text width"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "Number of characters per line before wrapping occurs"
+            ),
         },
-        'tabWidth': {
-            'type':
-            'number',
-            'label':
-            QCoreApplication.translate('EditorSettings', 'Tab width'),
-            'help':
-            QCoreApplication.translate(
-                'EditorSettings', 'Width of tabs in characters, or the number of spaces to insert when tab is pressed'),
+        "tabWidth": {
+            "type": "number",
+            "label": QCoreApplication.translate("EditorSettings", "Tab width"),
+            "help": QCoreApplication.translate(
+                "EditorSettings",
+                "Width of tabs in characters, or the number of spaces to insert when tab is pressed",
+            ),
         },
-
         # Multiple-selection settings
-        'braceMatching': {
-            'type': 'combo',
-            'valuetype': QsciScintilla.BraceMatch,
-            'label': QCoreApplication.translate('EditorSettings', 'Brace Matching'),
-            'help': QCoreApplication.translate('EditorSettings',
-                                               'Whether and how to highlight matching {} [] () braces'),
+        "braceMatching": {
+            "type": "combo",
+            "valuetype": QsciScintilla.BraceMatch,
+            "label": QCoreApplication.translate("EditorSettings", "Brace Matching"),
+            "help": QCoreApplication.translate(
+                "EditorSettings",
+                "Whether and how to highlight matching {} [] () braces",
+            ),
         },
-        'edgeMode': {
-            'type': 'combo',
-            'valuetype': QsciScintilla.EdgeMode,
-            'label': QCoreApplication.translate('EditorSettings', 'Edge Mode'),
-            'help': QCoreApplication.translate('EditorSettings', 'How the edge of the text width is indicated'),
+        "edgeMode": {
+            "type": "combo",
+            "valuetype": QsciScintilla.EdgeMode,
+            "label": QCoreApplication.translate("EditorSettings", "Edge Mode"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "How the edge of the text width is indicated"
+            ),
         },
-        'eolMode': {
-            'type': 'combo',
-            'valuetype': QsciScintilla.EolMode,
-            'label': QCoreApplication.translate('EditorSettings', 'Line Endings'),
-            'help': QCoreApplication.translate('EditorSettings', 'End lines with carriage return and/or line feed'),
+        "eolMode": {
+            "type": "combo",
+            "valuetype": QsciScintilla.EolMode,
+            "label": QCoreApplication.translate("EditorSettings", "Line Endings"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "End lines with carriage return and/or line feed"
+            ),
         },
-        'folding': {
-            'type': 'combo',
-            'valuetype': QsciScintilla.FoldStyle,
-            'label': QCoreApplication.translate('EditorSettings', 'Folding'),
-            'help': QCoreApplication.translate('EditorSettings', 'What kind of icons to display for code-folding')
+        "folding": {
+            "type": "combo",
+            "valuetype": QsciScintilla.FoldStyle,
+            "label": QCoreApplication.translate("EditorSettings", "Folding"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "What kind of icons to display for code-folding"
+            ),
         },
-        'whitespaceVisibility': {
-            'type': 'combo',
-            'valuetype': QsciScintilla.WhitespaceVisibility,
-            'label': QCoreApplication.translate('EditorSettings', 'Whitespace'),
-            'help': QCoreApplication.translate('EditorSettings', 'Whether whitespace is indicated with visible markers')
+        "whitespaceVisibility": {
+            "type": "combo",
+            "valuetype": QsciScintilla.WhitespaceVisibility,
+            "label": QCoreApplication.translate("EditorSettings", "Whitespace"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "Whether whitespace is indicated with visible markers"
+            ),
         },
-        'wrapMode': {
-            'type': 'combo',
-            'valuetype': QsciScintilla.WrapMode,
-            'label': QCoreApplication.translate('EditorSettings', 'Wrap Mode'),
-            'help': QCoreApplication.translate('EditorSettings', 'How to wrap text when it reaches the text width')
+        "wrapMode": {
+            "type": "combo",
+            "valuetype": QsciScintilla.WrapMode,
+            "label": QCoreApplication.translate("EditorSettings", "Wrap Mode"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "How to wrap text when it reaches the text width"
+            ),
         },
-        'language': {
-            'type': 'combo',
-            'valuetype': 'language',
-            'label': QCoreApplication.translate('EditorSettings', 'Language'),
-            'help': QCoreApplication.translate('EditorSettings', 'Syntax highlighting language'),
+        "language": {
+            "type": "combo",
+            "valuetype": "language",
+            "label": QCoreApplication.translate("EditorSettings", "Language"),
+            "help": QCoreApplication.translate(
+                "EditorSettings", "Syntax highlighting language"
+            ),
         },
-
         # TODO: Need a getter for this
         # 'caretWidth': {
         # 'label': 'Caret width (pixels)',
         # },
-
         # Stuff the user probably doesn't care about configuring
         # (or do you?)
         # 'annotationDisplay': {
@@ -187,55 +216,54 @@ class EditorSettings():
 
     # Setting groups
     settingGroups = {
-        'Colors': {
-            'label': QCoreApplication.translate('EditorSettings', 'Colors'),
-            'items': (
-                'color',
-                'paper',
-            )
+        "Colors": {
+            "label": QCoreApplication.translate("EditorSettings", "Colors"),
+            "items": (
+                "color",
+                "paper",
+            ),
         },
-        'Text': {
-            'label': QCoreApplication.translate('EditorSettings', 'Text'),
-            'items': (
-                'fontFamily',
-                'fontSize',
-            )
+        "Text": {
+            "label": QCoreApplication.translate("EditorSettings", "Text"),
+            "items": (
+                "fontFamily",
+                "fontSize",
+            ),
         },
-        'Indentation': {
-            'label':
-            QCoreApplication.translate('EditorSettings', 'Indentation'),
-            'items': (
-                'tabWidth',
-                'tabIndents',
-                'backspaceUnindents',
-                'autoIndent',
-                'indentationGuides',
-                'indentationsUseTabs',
-            )
+        "Indentation": {
+            "label": QCoreApplication.translate("EditorSettings", "Indentation"),
+            "items": (
+                "tabWidth",
+                "tabIndents",
+                "backspaceUnindents",
+                "autoIndent",
+                "indentationGuides",
+                "indentationsUseTabs",
+            ),
         },
-        'Wrapping': {
-            'label': QCoreApplication.translate('EditorSettings', 'Wrapping'),
-            'items': (
-                'wrapMode',
-                'edgeMode',
-                'edgeColumn',
-            )
+        "Wrapping": {
+            "label": QCoreApplication.translate("EditorSettings", "Wrapping"),
+            "items": (
+                "wrapMode",
+                "edgeMode",
+                "edgeColumn",
+            ),
         },
-        'Formatting': {
-            'label': QCoreApplication.translate('EditorSettings', 'Formatting'),
-            'items': (
-                'whitespaceVisibility',
-                'eolMode',
-                'eolVisibility',
-            )
+        "Formatting": {
+            "label": QCoreApplication.translate("EditorSettings", "Formatting"),
+            "items": (
+                "whitespaceVisibility",
+                "eolMode",
+                "eolVisibility",
+            ),
         },
-        'Coding aids': {
-            'label': QCoreApplication.translate('EditorSettings', 'Coding aids'),
-            'items': (
-                'language',
-                'folding',
-                'braceMatching',
-            )
+        "Coding aids": {
+            "label": QCoreApplication.translate("EditorSettings", "Coding aids"),
+            "items": (
+                "language",
+                "folding",
+                "braceMatching",
+            ),
         },
     }
 
@@ -243,31 +271,31 @@ class EditorSettings():
     # FIXME: Can't effectively include these until getters are written.
     _other_color_settings = (
         # Selection
-        'selectionForegroundColor',
-        'selectionBackgroundColor',
+        "selectionForegroundColor",
+        "selectionBackgroundColor",
         # Caret (current line)
-        'caretForegroundColor',
-        'caretLineBackgroundColor',
+        "caretForegroundColor",
+        "caretLineBackgroundColor",
         # Edge marker
-        'edgeColor',
+        "edgeColor",
         # Indentation guides
-        'indentationGuidesForegroundColor',
-        'indentationGuidesBackgroundColor',
+        "indentationGuidesForegroundColor",
+        "indentationGuidesBackgroundColor",
         # Brace matching
-        'matchedBraceForegroundColor',
-        'matchedBraceBackgroundColor',
-        'unmatchedBraceForegroundColor',
-        'unmatchedBraceBackgroundColor',
+        "matchedBraceForegroundColor",
+        "matchedBraceBackgroundColor",
+        "unmatchedBraceForegroundColor",
+        "unmatchedBraceBackgroundColor",
         # Marker colors
-        'markerForegroundColor',
-        'markerBackgroundColor',
+        "markerForegroundColor",
+        "markerBackgroundColor",
         # Margins
-        'marginsForegroundColor',
-        'marginsBackgroundColor',
+        "marginsForegroundColor",
+        "marginsBackgroundColor",
         # CallTips
-        'callTipsForegroundColor',
-        'callTipsBackgroundColor',
-        'callTipsHighlightColor',
+        "callTipsForegroundColor",
+        "callTipsBackgroundColor",
+        "callTipsHighlightColor",
     )
 
     def __init__(self, editor=None):
@@ -292,19 +320,21 @@ class EditorSettings():
             value = QColor(value).name()
         elif isinstance(value, QColor):
             value = value.name()
-        elif name in self.settingItems and self.settingItems[name]['type'] == 'combo':
-            value = SettingEnums.getName(self.settingItems[name]['valuetype'], value)
+        elif name in self.settingItems and self.settingItems[name]["type"] == "combo":
+            value = SettingEnums.getName(self.settingItems[name]["valuetype"], value)
         return value
 
     def set(self, name, tomlformatvalue):
         """set config item to editor, when value is color or combo the value can be color string or enum name,
-         same to tomldict format"""
+        same to tomldict format"""
         value = tomlformatvalue
         if name in self.settingItems:
-            if self.settingItems[name]['type'] == 'color':
+            if self.settingItems[name]["type"] == "color":
                 value = QColor(tomlformatvalue)
-            elif self.settingItems[name]['type'] == 'combo':
-                value = SettingEnums.getFromName(self.settingItems[name]['valuetype'], tomlformatvalue)
+            elif self.settingItems[name]["type"] == "combo":
+                value = SettingEnums.getFromName(
+                    self.settingItems[name]["valuetype"], tomlformatvalue
+                )
         elif isinstance(name, str):
             try:
                 value = QColor(tomlformatvalue)
@@ -331,14 +361,17 @@ class EditorSettings():
         for name, value in tomldict:
             self._currentSettings[name] = value
             if isinstance(value, str) and name in self.settingItems:
-                if self.settingItems[name]['type'] == 'color':
+                if self.settingItems[name]["type"] == "color":
                     self._currentSettings[name] = QColor(value)
-                elif self.settingItems[name]['type'] == 'combo':
-                    self._currentSettings[name] = SettingEnums.getFromName(self.settingItems[name]['valuetype'], name)
+                elif self.settingItems[name]["type"] == "combo":
+                    self._currentSettings[name] = SettingEnums.getFromName(
+                        self.settingItems[name]["valuetype"], name
+                    )
         self.updateUi(self._currentSettings)
 
     def settingPanel(self):
         """Create and return a widget include all settings"""
+
         class Panel(QScrollArea):
             showed = pyqtSignal()
 
@@ -365,8 +398,7 @@ class EditorSettings():
         return scrollArea
 
     def _defaultLayout(self):
-        """Create and return the main layout for the dialog widget.
-        """
+        """Create and return the main layout for the dialog widget."""
         # Indexed group boxes, for easier rearrangement
 
         self.createWidgets()
@@ -378,8 +410,8 @@ class EditorSettings():
     def createWidgets(self):
         """Create widgets for setting and save them into self.settingWidgets, each widget is a QGroup"""
         for values in self.settingGroups.values():
-            label = values['label']
-            names = values['items']
+            label = values["label"]
+            names = values["items"]
             self.groupWidgets[label] = QGroupBox(label)
             group_layout = QVBoxLayout()
             for name in names:
@@ -388,29 +420,28 @@ class EditorSettings():
             self.groupWidgets[label].setFlat(False)
 
     def _create_widget(self, name):
-        """Return an appropriate widget for the given configuration setting.
-        """
+        """Return an appropriate widget for the given configuration setting."""
         setting = self.settingItems[name]
-        type_ = setting['type']
+        type_ = setting["type"]
 
         # Get the appropriate widget type
-        if type_ == 'bool':
+        if type_ == "bool":
             widget = self._create_checkbox(name)
-        elif type_ == 'number':
+        elif type_ == "number":
             widget = self._create_number_box(name)
-        elif type_ == 'combo':
+        elif type_ == "combo":
             widget = self._create_combobox(name)
-        elif type_ == 'fontfamily':
+        elif type_ == "fontfamily":
             widget = self._create_fontcombobox(name)
-        elif type_ == 'color':
+        elif type_ == "color":
             widget = self._create_color_picker(name)
 
         # Label with possible tooltip
-        label = QLabel(setting['label'])
+        label = QLabel(setting["label"])
 
         # Add tooltip to widget
-        if 'help' in setting:
-            widget.setToolTip(setting['help'])
+        if "help" in setting:
+            widget.setToolTip(setting["help"])
 
         # Add label and widget
         hbox = QHBoxLayout()
@@ -445,8 +476,7 @@ class EditorSettings():
         return checkbox
 
     def _create_number_box(self, name):
-        """Return a numeric entry widget for a numeric setting.
-        """
+        """Return a numeric entry widget for a numeric setting."""
         spinbox = QSpinBox()
         spinbox.setMaximumWidth(120)
 
@@ -466,7 +496,7 @@ class EditorSettings():
     def _create_combobox(self, name):
         """Return a combobox for modifying a multiple-getValue setting."""
         setting = self.settingItems[name]
-        valuetype = setting['valuetype']
+        valuetype = setting["valuetype"]
         # Create the combobox and populate it
         combo = QComboBox()
         combo.setMinimumWidth(100)
@@ -521,8 +551,9 @@ class EditorSettings():
 
         # Event handler
         def button_pressed():
-            color = QColorDialog.getColor(self._currentSettings.get(
-                name, Qt.white))  # button.palette().color(QPalette.Background))
+            color = QColorDialog.getColor(
+                self._currentSettings.get(name, Qt.white)
+            )  # button.palette().color(QPalette.Background))
             if color.isValid():
                 button.setStyleSheet("background-color: %s" % color.name())
                 self._changedSettings[name] = color
@@ -560,12 +591,19 @@ class EditorSettings():
                         self._changedSettings["color"] = self._currentSettings["color"]
                     if "paper" not in self._changedSettings:
                         self._changedSettings["paper"] = self._currentSettings["paper"]
-                if "language" in self._changedSettings or "fontSize" in self._changedSettings \
-                        or "fontFamily" in self._changedSettings:
+                if (
+                    "language" in self._changedSettings
+                    or "fontSize" in self._changedSettings
+                    or "fontFamily" in self._changedSettings
+                ):
                     if "fontSize" not in self._changedSettings:
-                        self._changedSettings['fontSize'] = self._currentSettings['fontSize']
+                        self._changedSettings["fontSize"] = self._currentSettings[
+                            "fontSize"
+                        ]
                     if "fontFamily" not in self._changedSettings:
-                        self._changedSettings['fontFamily'] = self._currentSettings["fontFamily"]
+                        self._changedSettings["fontFamily"] = self._currentSettings[
+                            "fontFamily"
+                        ]
                 self.editor.configure(**self._changedSettings)
             except Exception as e:
                 print(e)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Basic for load save and add item for toml config file
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>

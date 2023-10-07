@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """test for ui module.
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>
@@ -7,8 +6,7 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 from PyQt6.QtCore import Qt, QThread
 
 
-
-class TestMain():
+class TestMain:
     @classmethod
     def setup_class(cls):
         print("\nsetup_class       class:%s" % cls.__name__)
@@ -54,8 +52,7 @@ class TestMain():
         qtbot.waitForWindowShown(sharedwin["main"].confDialog)
 
     def test_fileop_and_clrpic(self, qapp, qtbot, sharedwin, tmpdir):
-        """Test file new and save, test color pick, this test will effect CodeEditor text
-        """
+        """Test file new and save, test color pick, this test will effect CodeEditor text"""
         mainwin = sharedwin["main"]
 
         def file():
@@ -70,7 +67,8 @@ class TestMain():
         mainwin.editor.setModified(False)
 
         import sys
-        if sys.platform.startswith('win'):
+
+        if sys.platform.startswith("win"):
 
             class DialogCloseThread(QThread):
                 def __init__(self, parent=None):
@@ -89,4 +87,7 @@ class TestMain():
             t1.wait()
             t1.quit()
             del t1
-            assert mainwin.clrBtnDict["text"].text() == "#222222" or mainwin.clrBtnDict["text"].text() == "#222"
+            assert (
+                mainwin.clrBtnDict["text"].text() == "#222222"
+                or mainwin.clrBtnDict["text"].text() == "#222"
+            )

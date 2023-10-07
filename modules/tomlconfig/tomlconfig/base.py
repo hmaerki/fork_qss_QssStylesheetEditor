@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Toml config file parser
 
 Copyright (c) 2019 lileilei. <hustlei@sina.cn>
@@ -8,7 +7,8 @@ Copyright (c) 2019 lileilei. <hustlei@sina.cn>
 # exception classes
 class Error(Exception):
     """Base class for TomlSection exceptions."""
-    def __init__(self, msg=''):
+
+    def __init__(self, msg=""):
         self.message = msg
         Exception.__init__(self, msg)
 
@@ -20,16 +20,20 @@ class Error(Exception):
 
 class NoSectionError(Error):
     """Raised when TomlSection not exist."""
+
     def __init__(self, sectionName):
-        Error.__init__(self, 'No section: %r' % (sectionName, ))
+        Error.__init__(self, "No section: %r" % (sectionName,))
         self.section = sectionName
-        self.args = (sectionName, )
+        self.args = (sectionName,)
 
 
 class SectionTypeError(Error):
     """Raised when getting wrong type for TomlSection."""
+
     def __init__(self, gettype, returntype):
-        Error.__init__(self, 'Type Error: Return "{}", when get "{}".'.format(returntype, gettype))
+        Error.__init__(
+            self, 'Type Error: Return "{}", when get "{}".'.format(returntype, gettype)
+        )
 
 
 class TomlSection(dict):
@@ -43,6 +47,7 @@ class TomlSection(dict):
         sec11 = sec.getSec("sec1.sec11")
         sec11.setValue("abc")
     """
+
     def __init__(self, other=()):
         super().__init__()
         self.update(other)

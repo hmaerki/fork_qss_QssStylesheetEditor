@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Tutorial for using CodeEditor package.
 
 Copyright (c) 2019 lileilei. <hustlei@sina.cn>

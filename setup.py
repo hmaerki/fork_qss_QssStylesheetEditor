@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 # with open("readme.md", "r", encoding='utf-8') as fh:
 # long_desc = fh.read()
@@ -20,52 +19,57 @@ from setuptools import setup, find_packages
 setup(
     name="QssStylesheetEditor",  # ProjectName
     version="1.8",
-    python_requires='>=3.0.*, <4',  # python的依赖关系
-    install_requires=["requests>=2.0", "preimport>=1.1.0", "tomlconfig>=1.2.1", "CodeEditor>=1.1.0"],
-
+    python_requires=">=3.0.*, <4",  # python的依赖关系
+    install_requires=[
+        "requests>=2.0",
+        "preimport>=1.1.0",
+        "tomlconfig>=1.2.1",
+        "CodeEditor>=1.1.0",
+    ],
     # Module
-    package_dir={'': 'src'},  # tell distutils packages are under src
-    packages=find_packages(where='src', include=('*'), exclude=[
-        '*.__pycache__',
-    ]),  #
-    py_modules=['app'],  # , 'bootstrapper'],  # single file
-
+    package_dir={"": "src"},  # tell distutils packages are under src
+    packages=find_packages(
+        where="src",
+        include=("*"),
+        exclude=[
+            "*.__pycache__",
+        ],
+    ),  #
+    py_modules=["app"],  # , 'bootstrapper'],  # single file
     # data
     package_data={
-        'config': ['*.toml'],  # *.toml files found in config package
-        'config.skin': ['*.qss'],
-        'data': ['*.qss', '*.qsst'],
-        'i18n': ['*.qm', '*.toml'],
-        'res': ['*'],
-        '': ['*.zip']
+        "config": ["*.toml"],  # *.toml files found in config package
+        "config.skin": ["*.qss"],
+        "data": ["*.qss", "*.qsst"],
+        "i18n": ["*.qm", "*.toml"],
+        "res": ["*"],
+        "": ["*.zip"],
     },
     exclude_package_data={
-        '': [
-            '*.ts',
-            '*.qrc',
-            '__pycache__/*.*',
+        "": [
+            "*.ts",
+            "*.qrc",
+            "__pycache__/*.*",
         ],
-        'res': [
-            'img',
+        "res": [
+            "img",
         ],
         # 'data': ['__init__.py']  # not work
     },
-
     # excutable
     # scripts=['src/app.py','src/__main__.py'],# 指定脚本会被安装到Python3x/Scripts下
     entry_points={
         "console_scripts": [
-            'qsseditor = app:main',  # create qsseditor.exe in Python3x/Scripts
-            'qssteditor = app:main',  # __main__
+            "qsseditor = app:main",  # create qsseditor.exe in Python3x/Scripts
+            "qssteditor = app:main",  # __main__
         ],
         "gui_scripts": [
-            'QssStylesheetEditor = app:main',
-        ]
+            "QssStylesheetEditor = app:main",
+        ],
     },
-
     # metadata to display on PyPI
-    author='lileilei',
-    author_email='hustlei@sina.cn',
+    author="lileilei",
+    author_email="hustlei@sina.cn",
     description="A Qt Stylesheet(QSS) CodeEditor",
     keywords="QSS",
     # long_description=long_desc,

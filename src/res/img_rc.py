@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Resource object code
 #
 # Created by: The Resource Compiler for PyQt6 (Qt v5.13.2)

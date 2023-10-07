@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """config dialog
 
 Copyright (c) 2019 lileilei <hustlei@sina.cn>

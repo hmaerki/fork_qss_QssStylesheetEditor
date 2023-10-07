@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """compile py code for distribute installer
 
 compile all py codings to pyc, and move pyc to dist directory.
@@ -7,9 +6,10 @@ Copyright (c) 2019 lileilei <hustlei@sina.cn>
 """
 
 import os
-import sys
 import re
 import shutil
+import sys
+
 # import py_compile
 # import compileall as com
 # com.compile_dir(dir,optimize=2)
@@ -30,8 +30,23 @@ datadir = os.path.join(root, "src/data")
 resdir = os.path.join(root, "src/res")
 
 # 不编译的文件夹，文件后缀
-excludedir = (".git", ".github", ".idea", "__pycache__", "data", "font", "img", "font", "dist", "build", "tests",
-              "installer", "old", "oldversion", "bak")
+excludedir = (
+    ".git",
+    ".github",
+    ".idea",
+    "__pycache__",
+    "data",
+    "font",
+    "img",
+    "font",
+    "dist",
+    "build",
+    "tests",
+    "installer",
+    "old",
+    "oldversion",
+    "bak",
+)
 
 # 删除dist/build文件夹下所有文件
 print("remove all files in dist/build.")
@@ -77,7 +92,7 @@ def copypath(path, distdir):
 def copyfiles(path, distdir, exclude=None):
     """copy all things in path to distdir"""
     if exclude is None:
-        exclude = (".py")
+        exclude = ".py"
     files = os.listdir(path)
     if not os.path.exists(distdir):
         os.mkdir(distdir)
@@ -102,7 +117,7 @@ copyfiles(os.path.join(root, r"dist/libs"), distroot)  # copy app.exe
 # compile python 脚本并copy到目标文件夹
 print("\ncompile all scripts and copy to dist/build.")
 copyexts = (".zip", ".bat", ".qm", ".toml", ".conf", ".qss")
-pexclude = re.compile(r'_[vV][0-9.\-_]+[.]py$$|[.]old[.]py$|_bak[.]py$')
+pexclude = re.compile(r"_[vV][0-9.\-_]+[.]py$$|[.]old[.]py$|_bak[.]py$")
 
 
 def compile_copy(path, distdir):

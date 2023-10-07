@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 """Bootstrapper for the program
 
 Invoked the main function in app module.

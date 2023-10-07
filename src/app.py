@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 """Class for application start
 
 App class wrapped a QApplication, which will show splash and start gui.
@@ -13,7 +12,7 @@ import sys
 from PyQt6.QtWidgets import QApplication
 
 from i18n.language import Language
-from splash import SplashScreen
+from splash.splash import SplashScreen
 
 os.chdir(os.path.dirname(__file__))
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))

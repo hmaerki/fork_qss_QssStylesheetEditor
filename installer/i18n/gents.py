@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """get .py source file list, and generate .ts file for translate.
 
 translate step:
@@ -15,9 +14,20 @@ import re
 
 srcroot = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
 
-excludedir = (".git", ".github", ".idea", "__pycache__", "data", "dist", "font", "img", "font", "installer")
+excludedir = (
+    ".git",
+    ".github",
+    ".idea",
+    "__pycache__",
+    "data",
+    "dist",
+    "font",
+    "img",
+    "font",
+    "installer",
+)
 
-p = re.compile(r'_[vV][0-9.\-_]+[.]py$$|[.]old[.]py$')
+p = re.compile(r"_[vV][0-9.\-_]+[.]py$$|[.]old[.]py$")
 
 
 def getsrclist(folder=None):
@@ -43,5 +53,7 @@ def getsrclist(folder=None):
 fs = getsrclist()
 os.chdir(srcroot)
 print(fs)
-s = "pylupdate5 {} -ts {}".format(" ".join(fs), os.path.join(os.path.dirname(__file__), "English.ts"))
+s = "pylupdate5 {} -ts {}".format(
+    " ".join(fs), os.path.join(os.path.dirname(__file__), "English.ts")
+)
 os.system(s)
