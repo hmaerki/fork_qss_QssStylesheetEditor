@@ -1,9 +1,11 @@
 """Qss preview for Custom QtWidgets"""
 
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
-from PyQt6.QtGui import QAction, QIcon
+import sys
+import os
 from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtWidgets import QMainWindow
 
 
